@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <FrameLayout
+        android:id="@+id/mainContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        
+        <ScrollView>
+        <LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:orientation="vertical"
+			 >
+			 
+	  <TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:textSize="25dp"
+			android:text="@string/regionlist_region_name" />
+	
+	  <TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:textSize="20dp"
+			android:text=""
+			android:id="@+id/region_name" />
+			
+	  <TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:textSize="25dp"
+			android:text="@string/regionlist_region_description" />
+			
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:textSize="20dp"
+		android:text=""
+		android:id="@+id/region_description" />
+		
+	<!-- Lista podjazdów sortowana według rankingu -->	
+		
+	<ListView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:id="@+id/region_climb_list" />
+		
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:id="@+id/show_climbs_map"
+		android:text="@string/regionlist_show_climbs" />
+
+	</LinearLayout>
+	</ScrollView>
+    </FrameLayout>
+    
+	<ListView
+	    android:id="@+id/drawerList"
+	    android:entries="@array/menu"
+		android:divider="@null"
+	    android:layout_width="@dimen/drawer_left_width"
+	    android:layout_height="match_parent"
+	    android:layout_gravity="left" >
+	</ListView>
+    
+</android.support.v4.widget.DrawerLayout>

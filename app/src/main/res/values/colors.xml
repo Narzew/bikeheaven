@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+	<item name="blue" type="color">#FF3366FF</item>
+	<item name="white" type="color">#FFFFFFFF</item>
+	<item name="black" type="color">#FF000000</item>
+	<item name="gray" type="color">#FF909090</item>
+	<!-- Blue shades -->
+	<item name="slope_downhill" type="color">#FFA9F5F2</item>
+	<item name="slope_flat" type="color">#FF81DAF5</item>
+	<!-- Green shades -->
+	<item name="slope_1" type="color">#FF9AFE2E</item>
+	<item name="slope_2" type="color">#FF74DF00</item>
+	<item name="slope_3" type="color">#FF5FB404</item>
+	<item name="slope_4" type="color">#FF04B404</item>
+	<!-- Yellow shades -->
+	<item name="slope_5" type="color">#FFF4FA58</item>
+	<item name="slope_6" type="color">#FFFFFF00</item>
+	<!-- Orange shades -->
+	<item name="slope_7" type="color">#FFF7D358</item>
+	<item name="slope_8" type="color">#FFFACC2E</item>
+	<item name="slope_9" type="color">#FFDBA901</item>
+	<item name="slope_10" type="color">#FFFE9A2E</item>
+	<item name="slope_11" type="color">#FFFF8000</item>
+	<!-- Red shades -->
+	<item name="slope_12" type="color">#FFFA5858</item>
+	<item name="slope_13" type="color">#FFFF0000</item>
+	<item name="slope_14" type="color">#FFDF0101</item>
+	<item name="slope_15" type="color">#FFB40404</item>
+	<item name="slope_16" type="color">#FF8A0808</item>
+	<!-- Bronze shades -->
+	<item name="slope_17" type="color">#FF8A4117</item>
+	<item name="slope_18" type="color">#FF742E0D</item>
+	<item name="slope_19" type="color">#FF561000</item>
+	<item name="slope_20" type="color">#FF4E0500</item>
+	<!-- Black for slopes more than 20% -->
+	<item name="slope_steep" type="color">#FFFFFFFF</item>
 </resources>

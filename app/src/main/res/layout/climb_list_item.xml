@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp" >
+
+    <TextView
+        android:id="@+id/climbName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/climbSlope"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#7D7D7D"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="1dp"
+        android:textSize="16dp" />
+
+</LinearLayout>
