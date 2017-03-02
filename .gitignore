@@ -22,7 +22,10 @@ gradle
 *.sh
 *.rb
 *.sql
+*.db
 .DS_Store
 local.properties
 /app/build
-
+db/
+api/
+assets/altimetr.db
