@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation"
     package="org.narzew.bikeheaven"
     android:versionCode="2"
     android:versionName="1.1">
@@ -52,6 +54,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="@string/com.google.android.maps.v2.API_KEY" />
+            android:value="@string/com.google.android.maps.v2.API_KEY"
+            tools:ignore="ManifestResource"/>
     </application>
 </manifest>

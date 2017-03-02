@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Podjazdy Rowerowe Altimetr.pl</string>
-    <string name="maps_activity">Mapa podjazdów</string>
-    <string name="list_activity">Lista podjazdów</string>
-    <string name="navigation_activity">Nawigacja</string>
-    <string name="settings_activity">Ustawienia</string>
-    <string name="climbinfo_activity">Informacje o podjeździe</string>
-    <string name="app_info">"Informacje o aplikacji</string>
-    <string name="climb_profile">Pokaż profil podjazdu</string>
-    <string name="climb_map">Pokaż mapę podjazdu</string>
-    <string name="climb_link">Pokaż stronę podjazdu</string>
-    <string name="checkbox_meta">Pokaż metę podjazdu</string>
-    <string name="checkbox_regions">Tryb regionów</string>
+    <string name="app_name">BikeHeaven</string>
+    <string name="maps_activity">Climb map</string>
+    <string name="list_activity">Climb list</string>
+    <string name="navigation_activity">Navigation</string>
+    <string name="settings_activity">Settings</string>
+    <string name="climbinfo_activity">Climb informations</string>
+    <string name="app_info">"About BikeHeaven</string>
+    <string name="climb_profile">Show climb profile</string>
+    <string name="climb_map">Show climb map</string>
+    <string name="climb_link">Show climb page</string>
+    <string name="checkbox_meta">Show climb finish (instead of climb start)</string>
+    <string name="checkbox_regions">Region mode</string>
     
-    <string name="app_version">Wersja aplikacji</string>
-    <string name="app_authors">Autorzy aplikacji</string>
-    <string name="used_resources">Użyte zasoby</string>
-    <string name="info_points">Punkty</string>
-    <string name="info_categories">Kategorie podjazdów</string>
+    <string name="app_version">App version</string>
+    <string name="app_authors">App authors</string>
+    <string name="used_resources">Used resources</string>
+    <string name="info_points">Points</string>
+    <string name="info_categories">Climb categories</string>
     
-    <string name="climbinfo_name">Nazwa podjazdu</string>
-    <string name="climbinfo_slope">Długość i nachylenie</string>
-    <string name="climbinfo_description">Opis podjazdu</string>
-    <string name="climbinfo_author">Autor podjazdu</string>
-    <string name="climbinfo_points">Punkty</string>
-    <string name="climbinfo_category">Kategoria podjazdu</string>
-    <string name="climbinfo_category2">Kategoria</string>
-    <string name="climbinfo_comments">Komentarze do podjazdu</string>
-    <string name="climbinfo_nocomments">Brak komentarzy</string>
-    <string name="climbinfo_slopes">Rozpiska nachyleń</string>
-    <string name="climbinfo_map">Mapa podjazdu</string>
-    <string name="climbinfo_site">Strona podjazdu</string>
-    <string name="climbinfo_region">Region podjazdu</string>
-    <string name="climbinfo_region_info">Pokaż podjazdy z regionu</string>
-    <string name="climbinfo_strava">Segment Stravy</string>
-    <string name="climbinfo_strava_segment">Pokaż segment Stravy</string>
+    <string name="climbinfo_name">Climb name</string>
+    <string name="climbinfo_slope">Length and slope</string>
+    <string name="climbinfo_description">Description</string>
+    <string name="climbinfo_author">Author</string>
+    <string name="climbinfo_points">Points</string>
+    <string name="climbinfo_category">Climb category</string>
+    <string name="climbinfo_category2">Category</string>
+    <string name="climbinfo_comments">Comments</string>
+    <string name="climbinfo_nocomments">No comments</string>
+    <string name="climbinfo_slopes">Slope data</string>
+    <string name="climbinfo_map">Climb map</string>
+    <string name="climbinfo_site">Climb page</string>
+    <string name="climbinfo_region">Climb region</string>
+    <string name="climbinfo_region_info">Show climbs from region</string>
+    <string name="climbinfo_strava">Strava Segment</string>
+    <string name="climbinfo_strava_segment">Show Strava segment</string>
     
-    <string name="settings_cat1">Pokazuj podjazdy od kategorii</string>
-    <string name="settings_cat2">do kategorii</string>
-    <string name="settings_elevation">Pokazywana wysokość</string>
-    <string name="settings_elevround">Zaokrąglenie nachyleń</string>
-    <string name="settings_screen_orientation">Orientacja ekranu</string>
+    <string name="settings_cat1">Show climbs from category</string>
+    <string name="settings_cat2">to category</string>
+    <string name="settings_elevation">Indicated elevation</string>
+    <string name="settings_elevround">Slope rounding</string>
+    <string name="settings_screen_orientation">Screen orientation</string>
     
-    <string name="menu_map">Mapa podjazdów</string>
-    <string name="menu_settings">Ustawienia</string>
-    <string name="menu_informations">Informacje</string>
+    <string name="menu_map">Climb map</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_informations">Informations</string>
     
-    <string name="regionlist_region_name">Nazwa regionu</string>
-    <string name="regionlist_region_description">Opis regionu</string>
-    <string name="regionlist_show_climbs">Pokaż podjazdy z regionu</string>
+    <string name="regionlist_region_name">Region name</string>
+    <string name="regionlist_region_description">Region description</string>
+    <string name="regionlist_show_climbs">Show climbs from region</string>
     
     <string-array name="menu">
 		<item>Mapa podjazdów</item>
@@ -57,27 +57,27 @@
     </string-array>
     
     <string-array name="maptypes">
-		<item>Mapa drogowa</item>
-		<item>Mapa satelitarna</item>
-		<item>Mapa satelitarna (czysta)</item>
-		<item>Mapa terenowa</item>
+		<item>Road map</item>
+		<item>Satellite map</item>
+		<item>Satellite map (clear)</item>
+		<item>Terrain map</item>
     </string-array>
     
     <string-array name="elevtypes">
-		<item>Właściwa wysokość</item>
-		<item>Przebyta wysokość</item>
-		<item>Pozostała wysokość</item>
+		<item>Actual elevation</item>
+		<item>Passed elevation</item>
+		<item>Remaining elevation</item>
     </string-array>
     
     <string-array name="sloperoundtypes">
-		<item>1 miejsce po przecinku</item>
-		<item>2 miejsca po przecinku</item>
-		<item>3 miejsca po przecinku</item>
+		<item>1 place after comma</item>
+		<item>2 places after comma</item>
+		<item>3 places after comma</item>
     </string-array>
     
     <string-array name="orientationtypes">
-		<item>Pionowa (telefon)</item>
-		<item>Pozioma (tablet)</item>
+		<item>Vertical (phone)</item>
+		<item>Horizontal (tablet)</item>
     </string-array>
     
     <string name="rangeseekbar_min_label">HC</string>

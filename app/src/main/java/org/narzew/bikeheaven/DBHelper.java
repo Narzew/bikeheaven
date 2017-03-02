@@ -42,7 +42,7 @@ public class DBHelper {
 	}
 
 	public Boolean initialize_database(){
-		// Do nothing;
+		openDatabase();
 		return true;
 	}
 	

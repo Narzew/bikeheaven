@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">БикеХеавен</string>
+    <string name="maps_activity">Карта возвышенности</string>
+    <string name="list_activity">Список возвышенности</string>
+    <string name="navigation_activity">Навигация</string>
+    <string name="settings_activity">Настройки</string>
+    <string name="climbinfo_activity">Данные для лазания</string>
+    <string name="app_info">"О BikeHeaven</string>
+    <string name="climb_profile">Показать профиль набора высоты</string>
+    <string name="climb_map">Показать восхождение на карте</string>
+    <string name="climb_link">Показать набор высоты страницы</string>
+    <string name="checkbox_meta">Показать подъем закончить (вместо начала набора высоты)</string>
+    <string name="checkbox_regions">Режим область</string>
+    
+    <string name="app_version">Версия приложения</string>
+    <string name="app_authors">Авторы апликации</string>
+    <string name="used_resources">Используемые ресурсы</string>
+    <string name="info_points">Точки</string>
+    <string name="info_categories">Подняться категории</string>
+    
+    <string name="climbinfo_name">Имя возвышенности</string>
+    <string name="climbinfo_slope">Длина и наклон</string>
+    <string name="climbinfo_description">Описание</string>
+    <string name="climbinfo_author">Автор</string>
+    <string name="climbinfo_points">Точки</string>
+    <string name="climbinfo_category">Категория возвышенности</string>
+    <string name="climbinfo_category2">Категория</string>
+    <string name="climbinfo_comments">Комментарии</string>
+    <string name="climbinfo_nocomments">Нет комментариев</string>
+    <string name="climbinfo_slopes">Данные Slope</string>
+    <string name="climbinfo_map">Карта возвышенности</string>
+    <string name="climbinfo_site">Страница возвышенности</string>
+    <string name="climbinfo_region">Подняться область</string>
+    <string name="climbinfo_region_info">Показать подъемы из области</string>
+    <string name="climbinfo_strava">Страва Сегмент</string>
+    <string name="climbinfo_strava_segment">Показать Страва Сегмент</string>
+    
+    <string name="settings_cat1">Показать подъемы из категории</string>
+    <string name="settings_cat2">до категории</string>
+    <string name="settings_elevation">Указано высота</string>
+    <string name="settings_elevround">​​Склон округления</string>
+    <string name="settings_screen_orientation">Ориентация экрана</string>
+    
+    <string-array name="menu">
+		<item>Mapa podjazdów</item>
+		<item>Ustawienia</item>
+		<item>Informacje</item>
+    </string-array>
+    
+    <string name="menu_map">Карта возвышенности</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_informations">Информация</string>
+    
+    <string name="regionlist_region_name">Имя Региону</string>
+    <string name="regionlist_region_description">Описание Область</string>
+    <string name="regionlist_show_climbs">Показать подъемы из области</string>
+    
+    <string-array name="maptypes">
+		<item>Дорожная карта</item>
+		<item>Спутниковая карта</item>
+		<item>Спутниковая карта (прозрачный)</item>
+		<item>Рельефный карта</item>
+    </string-array>
+    
+    <string-array name="elevtypes">
+		<item>Фактическая высота</item>
+		<item>Пройдена высота</item>
+		<item>Оставшееся высота</item>
+    </string-array>
+    
+    <string-array name="sloperoundtypes">
+		<item>1 место после запятой</item>
+		<item>2 места после запятой</item>
+		<item>3 места после запятой</item>
+    </string-array>
+    
+    <string-array name="orientationtypes">
+		<item>Вертикальный (телефон)</item>
+		<item>Горизонтальные (таблет)</item>
+    </string-array>
+  
+    <string name="rangeseekbar_min_label">HC</string>
+    <string name="rangeseekbar_max_label">7</string>
+    
+</resources>

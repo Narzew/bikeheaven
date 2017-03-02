@@ -30,6 +30,9 @@ db/
 api/
 assets/altimetr.db
 app/src/main/res/values/keys.xml
+app/src/main/res/values-pl/keys.xml
+app/src/main/res/values-es/keys.xml
+app/src/main/res/values-ru/keys.xml
 keys.xml
 *keys.xml
 compilation/

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BikeHeaven</string>
+    <string name="maps_activity">Mapa de subidas</string>
+    <string name="list_activity">Lista de subidas</string>
+    <string name="navigation_activity">Navegación</string>
+    <string name="settings_activity">Ajustes</string>
+    <string name="climbinfo_activity">Informaciónes sobre subida</string>
+    <string name="app_info">"Sobre BikeHeaven</string>
+    <string name="climb_profile">Mostrar subida profile</string>
+    <string name="climb_map">Mostrar mapa de este subida</string>
+    <string name="climb_link">Mostrar página de este subida</string>
+    <string name="checkbox_meta">Mostrar meta de subida (en lugar de start)</string>
+    <string name="checkbox_regions">Modo de regiónes</string>
+    
+    <string name="app_version">Versión de aplicación</string>
+    <string name="app_authors">Authores de aplicación</string>
+    <string name="used_resources">Recursos usadas</string>
+    <string name="info_points">Puntos</string>
+    <string name="info_categories">Categories de subidas</string>
+    
+    <string name="climbinfo_name">Nombre de subida</string>
+    <string name="climbinfo_slope">Longitud y inclinación</string>
+    <string name="climbinfo_description">Descripción</string>
+    <string name="climbinfo_author">Autor</string>
+    <string name="climbinfo_points">Puntos</string>
+    <string name="climbinfo_category">Categoría de subida</string>
+    <string name="climbinfo_category2">Categoría</string>
+    <string name="climbinfo_comments">Comentarios</string>
+    <string name="climbinfo_nocomments">No comentarios</string>
+    <string name="climbinfo_slopes">Datos de inclinación</string>
+    <string name="climbinfo_map">Mapa de subida</string>
+    <string name="climbinfo_site">Página de subida</string>
+    <string name="climbinfo_region">Región de subida</string>
+    <string name="climbinfo_region_info">Mostrar subidas de este región</string>
+    <string name="climbinfo_strava">Segmento de Strava</string>
+    <string name="climbinfo_strava_segment">Mostrar segmento de Strava</string>
+    
+    <string name="settings_cat1">Mostrar subidas de este categoría</string>
+    <string name="settings_cat2">a categoría</string>
+    <string name="settings_elevation">Elevación indicada</string>
+    <string name="settings_elevround">Redondez de inclinación</string>
+    <string name="settings_screen_orientation">Orientación de pantalla</string>
+    
+    <string name="menu_map">Mapa de subidas</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="menu_informations">Informaciónes</string>
+    
+    <string name="regionlist_region_name">Nombre de región</string>
+    <string name="regionlist_region_description">Descripción de región</string>
+    <string name="regionlist_show_climbs">Mostrar subidas de este región</string>
+    
+    <string-array name="menu">
+		<item>Mapa podjazdów</item>
+		<item>Ustawienia</item>
+		<item>Informacje</item>
+    </string-array>
+    
+    <string-array name="maptypes">
+		<item>Mapa de carreteras</item>
+		<item>Mapa de satelita</item>
+		<item>Mapa de satelita (pura)</item>
+		<item>Mapa de terreno</item>
+    </string-array>
+    
+    <string-array name="elevtypes">
+		<item>Elevación actual</item>
+		<item>Elevación pasado</item>
+		<item>Elevación restante</item>
+    </string-array>
+    
+    <string-array name="sloperoundtypes">
+		<item>1 sitio después de comma</item>
+		<item>2 sitios después de comma</item>
+		<item>3 sitios después de comma</item>
+    </string-array>
+    
+    <string-array name="orientationtypes">
+		<item>Vertical (teléfono)</item>
+		<item>Horizontal (tablet)</item>
+    </string-array>
+    
+    <string name="rangeseekbar_min_label">HC</string>
+    <string name="rangeseekbar_max_label">7</string>
+    
+</resources>
