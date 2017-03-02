@@ -29,3 +29,6 @@ local.properties
 db/
 api/
 assets/altimetr.db
+app/src/main/res/values/keys.xml
+keys.xml
+*keys.xml
