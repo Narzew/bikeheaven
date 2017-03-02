@@ -32,3 +32,6 @@ assets/altimetr.db
 app/src/main/res/values/keys.xml
 keys.xml
 *keys.xml
+compilation/
+app-release.apk
+app-debug.apk

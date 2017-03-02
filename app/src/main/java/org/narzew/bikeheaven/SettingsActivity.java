@@ -36,8 +36,8 @@ import android.util.Log;
 import android.widget.Spinner;
 import android.widget.LinearLayout;
 
-import org.narzew.altimetr.RangeSeekBar;
-import org.narzew.altimetr.RangeSeekBar.OnRangeSeekBarChangeListener;
+import org.narzew.bikeheaven.RangeSeekBar;
+import org.narzew.bikeheaven.RangeSeekBar.OnRangeSeekBarChangeListener;
 
 public class SettingsActivity extends ActionBarActivity implements OnItemClickListener {
 	

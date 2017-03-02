@@ -1,18 +1,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<item
-		android:id="@+id/menu_map"
-		android:orderInCategory="100"
-		android:title="@string/menu_map" />
-		
-	<item
-		android:id="@+id/menu_settings"
-		android:orderInCategory="110"
-		android:title="@string/menu_settings" />
-		
-	<item
-		android:id="@+id/menu_informations"
-		android:orderInCategory="120"
-		android:title="@string/menu_informations" />
+    <item
+        android:id="@+id/menu_app"
+        android:orderInCategory="130"
+        android:title="Aplikacja" />
+
+    <item
+        android:id="@+id/menu_list"
+        android:orderInCategory="140"
+        android:title="Lista podjazdow" />
+
+    <item
+        android:id="@+id/menu_navigation"
+        android:orderInCategory="150"
+        android:title="Nawigacja" />
+
+    <item
+        android:id="@+id/menu_map"
+        android:orderInCategory="100"
+        android:title="@string/menu_map" />
+
+    <item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="110"
+        android:title="@string/menu_settings" />
+
+    <item
+        android:id="@+id/menu_informations"
+        android:orderInCategory="120"
+        android:title="@string/menu_informations" />
 
 </menu>

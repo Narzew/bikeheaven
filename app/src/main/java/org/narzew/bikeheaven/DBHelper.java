@@ -40,6 +40,11 @@ public class DBHelper {
 		cw = new ContextWrapper(context);
 		db_path = cw.getFilesDir().getAbsolutePath()+ "/databases/";
 	}
+
+	public Boolean initialize_database(){
+		// Do nothing;
+		return true;
+	}
 	
 	public SQLiteDatabase openDatabase() {
         File dbFile = context.getDatabasePath(DB_NAME);

@@ -61,7 +61,7 @@
 			android:layout_gravity="center_horizontal"
 			android:text="@string/settings_screen_orientation"
 			android:textSize="22dp"
-			android:id="@+id/sloperound_text" />
+			android:id="@+id/screen_orientation_text" />
     		
     	<Spinner
 			android:id="@+id/orientation_spinner"

@@ -23,7 +23,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ListView; 
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -244,7 +244,7 @@ public class ListActivity extends ActionBarActivity implements OnItemClickListen
 					imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.map));
 					break;
 				case "Nawigacja":
-					imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.navigation));
+					imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.map));
 					break;
 				case "Ustawienia":
 					imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.settings));
