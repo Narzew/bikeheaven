@@ -1,0 +1,131 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJCXPWpMn3cg0RCRxzd3y1G9s",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJbf8kARVfcg0R_HdJtWIK41w",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : 36.8127447,
+               "lng" : -4.3728983
+            },
+            "southwest" : {
+               "lat" : 36.7361176,
+               "lng" : -4.4160457
+            }
+         },
+         "copyrights" : "Dane do Mapy ©2017 Google, Inst. Geogr. Nacional",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "15,3 km",
+                  "value" : 15259
+               },
+               "duration" : {
+                  "text" : "24 min",
+                  "value" : 1438
+               },
+               "end_address" : "A-7000, 120, 29190 Málaga, Hiszpania",
+               "end_location" : {
+                  "lat" : 36.8127447,
+                  "lng" : -4.3728983
+               },
+               "start_address" : "Av. Manuel Gorria, 44, 29013 Málaga, Hiszpania",
+               "start_location" : {
+                  "lat" : 36.7361363,
+                  "lng" : -4.4160457
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "24 m",
+                        "value" : 24
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 6
+                     },
+                     "end_location" : {
+                        "lat" : 36.7362014,
+                        "lng" : -4.4159093
+                     },
+                     "html_instructions" : "Kieruj się na \u003cb\u003epołudniowy wschód\u003c/b\u003e w stronę \u003cb\u003eCamino del Colmenar\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "{_f_Fho}Y@A@??A@A?A@A?A?A?A?A?A?AA??A?AA??AA??AA?A?A??AA??@A?A?A??@"
+                     },
+                     "start_location" : {
+                        "lat" : 36.7361363,
+                        "lng" : -4.4160457
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "2,0 km",
+                        "value" : 2009
+                     },
+                     "duration" : {
+                        "text" : "4 min",
+                        "value" : 218
+                     },
+                     "end_location" : {
+                        "lat" : 36.746437,
+                        "lng" : -4.4080207
+                     },
+                     "html_instructions" : "Zjedź z ronda w \u003cb\u003eCamino del Colmenar\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "g`f_Fln}YOKGGEIEMG_@Ic@_@iAc@cA@A?A@A?A?A@A?A?A?A?A?AAA?A?A?AA??A?AA??AA??AAAA??AA?A??AA?A?A?A?A?Yc@CCACCAAACCC?AAi@OEAGCIEA??AA??A?AA??A?A@A?CAC@E?C@G?A@A?C@ABC@A@ADCDEj@U`@QTIh@UHGNMFI?A@C?A@E?C?A?A?A?C?A?AAAAEAICMKUACSe@o@mAO[MWKS[EC?C?C?A?C?C@C@E@C@C@CBA@A@A@?BCBA@?BAD?@?@AH?F@D?B@H?BBF@B@BFJDDBDDBFBDBBDFFBFBFBL?H@H?B?@AB?BA@A@ABC@EBE@E@K?KAMCQG[Mc@SGCGAIAMA_BUSEKCQGYMa@Si@[ICGEKCICEAE?E?u@Fy@JWF_@HIBm@TQDIBG?GAEACAeC{@y@]WOSIy@e@AA[Yq@k@{@y@KIEEGKy@aASUEAGAE?G@C?G@CBEFKLKXMXKNMLWHOFU@I?C?A?I?IAC?}@Ow@MWMAAKKISQm@Mi@EY?K?GFSP_@Xe@@I?GAIAIO_@MOQY]i@OUKSCC?AEGACEKA?]s@EGCC"
+                     },
+                     "start_location" : {
+                        "lat" : 36.7362014,
+                        "lng" : -4.4159093
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "13,2 km",
+                        "value" : 13226
+                     },
+                     "duration" : {
+                        "text" : "20 min",
+                        "value" : 1214
+                     },
+                     "end_location" : {
+                        "lat" : 36.8127447,
+                        "lng" : -4.3728983
+                     },
+                     "html_instructions" : "Kontynuuj wzdłuż \u003cb\u003eA-7000\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eMiejsce docelowe będzie po prawej stronie\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "g`h_Fb}{YGIIK?AA?AAQIOEm@QKEMGEAEAIAA?KBKDKLOLA@UPKDIBE@G?G?CAEAEAECCAA?KEIE[QwAu@GCa@SCAYKSAE?K@IDA@KDMJMJUTa@d@QNGDIBE@E@C@C?OAI?kA?I@IDMFOHGBKBGBK@E?S@uB@k@@[@M@W?U@U@Q?IAI?ICGAIASGQGKEMCOAQ@G?E@WDMBWDSBSBI@E?C?C?a@@wA?a@?YAWAUCGAICQESISIk@OEAEAIAM?I@GBGBCBKJEDQPUXQPGFEBG@E@G?K@GAE?MCIAsAYA?]Ge@IKCQCAACAEAECGCECCACEEEEEYc@CECCCAECKAI?KBE@EBIHS^EDEFC@KFI@I?E?EAEACAEAGCGCWKc@QYO[KWKYG[IIAQAYBMBIFMJSLE?E?EACAEEAEAAAA?CAC@C@EBEHEf@OLGDCDEBI@E?A?C@EAG?ACKIa@Qq@ISACCACCCAC?CAG?C?G@a@Ji@VOJKJGFIHWXSPYPSJQFSHSDMBG@O?QAMCQCA?CASESGWKYMaC_AEEGCGICK?G?IDu@?WACAA?AAA?AAAAAAA?AA?ECIE[AeALa@DQAUCOEGAIEWU][_@[_@Y]Q]OSGMEMAOAIAKCKCGCKGIEMKg@c@s@q@MKEE[_@Y[Y]QYKUCEAGAGAK?M@KLq@Py@H]FQFKFODIFIXa@FMHOHODQDMDYBIDc@H}@F}@L}AFcABq@?s@Eu@I_AKw@Ki@CMGMEEEGEAIAEAI?G?I?K@KBIDIDMNUVEFGDIFIBE@E@G?G?GAGCICECECGGCCCGCICE?IAMAOA[?S?[B]Fc@DYBM@M@O@[E_@Me@Qg@Ka@G]?WDm@F_@D_@D[@YBU?UASCSOWOS[_@[_@UUQWISEQCO?S@QHYLWDKLWHQFMDSDS@[AW?YIq@G[[_Bk@}CEk@E{@EYCOGQ_@kAw@uCGOGKQUIG_@Mc@Qm@YqAs@QOIOGWAQ?K?KFWLc@HYN_@J_@BOFQ@M?S?GAO?AAOCWKy@Eg@C_B?]DgBB{@j@_OAq@EUEYIWGSWo@[c@_@a@S]ISGQAQAU?WFc@\\oA~@eDNo@d@cBDODKHMNKVGZAv@@VAJANEFCFEj@y@f@o@DCDAXEXA|@?`@DH?J@FDVL|@`@pAh@d@THBF@LBN@HAH?LCFAHCFEHGHKPWJ[DU@S?YIg@M_@IOKMOIUKICI@Q?OB]FYJc@HSB[?YCc@EsAMu@@gADoBFsABqBDQ@M?K@IDKDIDm@`@KH_Ar@eAt@aAt@k@^u@h@SNQLMFy@b@i@TYLIDG@O@_@Bm@DuARo@HYFUDIBKFEDABCBEHEHENETCRAL?LBZ@N@LDPBHHJNLJFHBT@T@^CRE`@K^OHIHIHWDSBSA[CWISQQMGOGg@?i@BU?Y?QEKCEACAIC_A]c@KW?UDSLQPINGNM\\U`@SVSLOH_@@_@BQDOFGHILEHCJCT?HAF?J@LBH@FHPLLNHHD\\@LAl@I\\BX@LBVBN?NAPIPOLSHS@UAWEYEKCGEEIEGCOEQAO?E@E@C@EBOLKHKHKHSFSDa@Dm@Da@DM@A?I@A?o@JYLm@\\g@Ru@LqBLaC?_@BSHQJSROJQFK@G@G?WCeAa@}@YEAE?I@GBMNKJEBCBE@A@A?EA_@CSEk@MMAM@GDCBIJU\\OVUXIHMBM?SEe@KUCMBMJMTGVCVEb@GZIJGHEBG@G?K?KAKCQE[MKAKAQ@M?U@QASAg@Ma@KICK?I?M@WD[HGDGHEFEJKVIZELALAVAlAAn@ITMNQHs@Pa@Ha@Fm@DUDWJOPKP_A`AUFK?G?GAIEUOg@]QIQGUGSESA]AK?EAEAGEMKOSc@m@KKIGKEICKAMCs@@_@BU@MAG?MCIC_A[UEIAG?I?E@GBMH]Z[ZSPKDGBE@G?GAICGEKIu@i@QMOIMEICKAM?KAUCIAIEIEIKKOQ[CEIMMKEECCECCAOEUEi@Gc@Es@GOEKCOG{@m@MKKEKGGACAYGQCQEQGQKUOGEICGAOCa@CYCg@COAMAMCKEIEIGMMMOOWIKECGCIAIAG@G@GBSJ]RWJGBG@E?E?EAICKC]OICGCE?G?SDa@L[FWDKBGBIFGJILGHQb@Up@Ob@GVEVCTCPCLCDGFE@C?EAE?CEEGCGAKAKCO?OAU@c@AY?QAUAOAQESEMEOEKIKIKMIOIUMGEKKw@s@YUm@e@QMIIGGIOOWYo@Wi@MQIKIGIEGCECG?GAE@IBOHOLQLMFYLWLMDGBEDGFQLGFGDKDQDK@WDK@K@I?q@Eg@AU?M@I@IBIBa@Ti@^WPMFEBIBK@I@K?KAGAGCGEKGEEYc@gCiE]a@QQUUMMSMOIQIIIIGIIIIGGIEEAGAk@CYCKCGCIEMKKIIEECGCEAG?_@@M?E?E?EAC?GCSMIIWYIIGEIGIGKCYGYE_@GKCKEGCQISMQIOKSQ_@_@KKIGIEKGGCGAKCMAK?QAOCGAMEIGKGIIIKQWSWQYMWMWOa@s@sB}@gCWu@Um@S_@Sa@"
+                     },
+                     "start_location" : {
+                        "lat" : 36.746437,
+                        "lng" : -4.4080207
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "{_f_Fho}YBYIEEBWS]{AaAoC@E@IAIKMGAg@m@qAg@Be@`Am@jBy@X]@Wk@aByAuCg@E_@LMX@l@NZVRTXHh@KV]FgA[}@[mCa@_DwAgAD{B`@qA^wCaA_D}AkCaCsA}AYWMAWFk@hAY\\g@Pe@@uAQoA[MMo@eC?SXs@Zo@AQq@sAkAqB}@wAqBs@QCs@d@m@\\Y?iAg@eCoAs@Mc@NsArAi@Z]@uA?SFq@XyFNuABe@G{@Ww@CuBZ{EAy@OyAe@g@A_@V_AbA[Na@?mB_@sBc@_AeAYKa@Hi@v@OHS@UEm@UqBy@qAUg@FWRYLKAMOAMDKp@U\\[BQOw@a@kAOGu@LmAv@oAfAmAb@w@Be@IyAg@wCsA@sAC]IMOIaBJs@Be@IgAy@_Au@{@a@_AQi@MkA}@cBcBqAiBIa@`@eC`@kAn@cA^_AXeC`@qGEiBUwB]kA[Mg@@m@^m@l@]Fa@IWSKa@EmAPwBHgASeA]iAGu@LmAPkBAi@Sk@}AiB[k@Ia@@e@Vq@d@cAJg@?s@IkAc@{Bq@iEKuAcBcGk@y@cEmB[_@Ii@TsAh@iBH{@Gy@QaBC}BHcDh@qP]{As@sAs@_AUmAF{@|AuF`AoDXYr@IjBGNIrAiB~@MtBFnD~AdA^p@Cb@SZc@Pq@@m@WgAU]e@Uu@@oB`@mDW_N\\mAr@sEhDgCfBkCnAoGx@q@VKPUbABfATt@ZT^Dt@At@Qh@YRa@Hg@Es@[e@]OaCBg@MiAa@{@Ki@R[`@Ul@i@x@c@V_ADa@LQVMt@Bj@JX\\Vf@Fz@K|AL^Ab@YVg@?m@Us@s@Q_@Dm@d@_@Pu@J}AL}@LgAj@}A`@qBLaC?s@LgAr@s@?oC}@k@`@QJ{@Ky@OUFs@dA_@b@[By@Qc@?[`@Kn@M~@QTa@DeAYw@Ag@?{@OaAOiAV_@t@SnAC|BWd@iCl@cAJg@\\kArAa@Fo@Wy@g@g@OqAIa@UiAuAo@OwBD_Bc@q@G}BbB_@C{AgAs@Uy@Gi@g@m@{@OMsAUsBWeBgAyBq@o@[sBOw@Mo@k@g@k@c@?qAn@[Dy@Y_@GiB`@e@Zy@lBa@hBSl@U?Oa@GaAAeBOcA_@s@{@g@kC{Bm@o@oAcCe@][C{@h@mAh@g@^m@X{@JyBGk@JqBnAe@Jg@Gs@w@eDkFg@g@cAo@g@e@_@QyAOm@a@[Iy@@e@Ss@s@y@[qAW_Ae@oAiAg@Ym@Gw@Mi@e@eAaBoCuHuAeD"
+         },
+         "summary" : "A-7000",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}
