@@ -20,7 +20,8 @@ end
 
 $points_data = []
 $result = ""
-$created_array = []
+$points_with_distance = []
+$points_every_one_hundred_meters = []
 data = File.read('json/geocoded_route_bicycle.json')
 json_data = JSON.parse(data)
 encoded_coords = json_data['routes'][0]['overview_polyline']['points']
@@ -35,17 +36,52 @@ decoded_coords.each{|x|
 		old_x = x[0]
 		old_y = x[1]
 		#print "[#{x[0]},#{x[1]},#{totaldistance}]\n"
-		$created_array << [x[0],x[1],totaldistance]
+		$points_with_distance << [x[0],x[1],totaldistance]
 		count+=1
 		next
 	else
 		a = distance [old_x,old_y],[x[0],x[1]]
 		totaldistance += a
 		#print "[#{x[0]},#{x[1]},#{totaldistance}]\n"
-		$created_array << [x[0],x[1],totaldistance] 
+		$points_with_distance << [x[0],x[1],totaldistance] 
 		old_x = x[0]
 		old_y = x[1]
 		count += 1
 	end
 }
-print $created_array
+old_point_data = []
+act_point_height = 0
+act_coord = []
+$points_with_distance.each{|x|
+	if old_point_data == []
+		old_point_data = x
+		act_point_height = x[2]
+		act_coord = x
+		next
+	else
+		# Synonyms
+		p1 = old_point_data
+		p2 = x
+		
+		# Calculate distance difference and actual point height
+		distance_difference = x[2]-old_point_data[2]
+		act_point_height += distance_difference
+		
+		# Check that act_point_height > 100, if yes, then calculate n coefficient and associated coords.
+		# Calculate n coefficient
+		# Warning! Not completed!! Not working properly !!!
+		if act_point_height >= 100
+			act_coord = x
+			n_left = 1/(p2[2]-p1[2])*100
+			n_right = 1-n_left
+			print "Warning!" if n_left > 1 or n_right > 1
+			average_x = (p1[0]*n_left+p2[0]*n_right)
+			average_y = (p1[1]*n_right+p2[1]*n_right)
+			$points_every_one_hundred_meters << [average_x,average_y]
+			act_point_height -= 100
+		end
+		# set old_point_data to current point before loading next point
+		old_point_data = x
+	end
+}
+print $points_every_one_hundred_meters
