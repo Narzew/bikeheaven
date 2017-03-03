@@ -18,37 +18,39 @@ def distance loc1, loc2
   rm * c # Delta in meters
 end
 
-$points_data = []
-$result = ""
-$points_with_distance = []
-$points_every_one_hundred_meters = []
-data = File.read('json/geocoded_route_bicycle.json')
-json_data = JSON.parse(data)
-encoded_coords = json_data['routes'][0]['overview_polyline']['points']
-decoded_coords = Polylines::Decoder.decode_polyline(encoded_coords)
-# Create points data
-old_x = 0.0
-old_y = 0.0
-count = 0
-totaldistance = 0
-decoded_coords.each{|x|
+def calculate_waypoints_for_json(file, output)
+	points_data = []
+	result = ""
+	points_with_distance = []
+	data = File.read(file)
+	json_data = JSON.parse(data)
+	encoded_coords = json_data['routes'][0]['overview_polyline']['points']
+	decoded_coords = Polylines::Decoder.decode_polyline(encoded_coords)
+	old_x = 0.0
+	old_y = 0.0
+	count = 0
+	totaldistance = 0
+	decoded_coords.each{|x|
 	if old_x == 0.0 || old_y == 0.0
 		old_x = x[0]
 		old_y = x[1]
 		#print "[#{x[0]},#{x[1]},#{totaldistance}]\n"
-		$points_with_distance << [x[0],x[1],totaldistance]
+		points_with_distance << [x[0],x[1],totaldistance]
 		count+=1
 		next
 	else
 		a = distance [old_x,old_y],[x[0],x[1]]
 		totaldistance += a
 		#print "[#{x[0]},#{x[1]},#{totaldistance}]\n"
-		$points_with_distance << [x[0],x[1],totaldistance] 
+		points_with_distance << [x[0],x[1],totaldistance] 
 		old_x = x[0]
 		old_y = x[1]
 		count += 1
 	end
-}
+end
+
+# Warning! Uncompleted and malfuncioning code below !!
+=begin
 old_point_data = []
 act_point_height = 0
 act_coord = []
@@ -85,3 +87,4 @@ $points_with_distance.each{|x|
 	end
 }
 print $points_every_one_hundred_meters
+=end
