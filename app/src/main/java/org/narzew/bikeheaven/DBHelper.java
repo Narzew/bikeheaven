@@ -27,7 +27,7 @@ public class DBHelper {
 	private static final String DB_NAME = "bikeheaven.db";
 	ContextWrapper cw;
 	String db_path;
-	Integer DB_VERSION = 1618; // Wersja bazy danych
+	Integer DB_VERSION = 2198; // Wersja bazy danych
 
 	// Zmienne do nachylenia na mapie
 	Integer POINT_NORMAL = 0;
@@ -56,7 +56,8 @@ public class DBHelper {
 			SharedPreferences sharedpreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 			if(DB_VERSION>sharedpreferences.getInt("db_version",0)){
 				// Nieaktualna baza danych
-				updateDatabase();
+				copyDatabase();
+				put_int("db_version", DB_VERSION);
 				Log.d("BikeHeavenDB", "Database updated");
 			} else {
 				Log.d("BikeHeavenDB", "Database up to date");
@@ -65,8 +66,8 @@ public class DBHelper {
 		return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READONLY);
 	}
 
-	private void updateDatabase(){
-		Log.d("BikeHeavenDB", "Prepare for database update");
+	private void copyDatabase(){
+		Log.d("BikeHeavenDB", "Prepare for database copying");
 		String path = "/data/data/org.narzew.bikeheaven/databases/bikeheaven.db";
 		File dbfolder = new File("/data/data/org.narzew.bikeheaven/databases");
 		if(!dbfolder.exists()){

@@ -409,14 +409,6 @@ public class MapsActivity extends ActionBarActivity implements OnItemClickListen
 		@Override
 		protected void onPostExecute(String i){
 			super.onPostExecute(i);
-			listView.setAdapter(new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,rank));
-			listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					// Show markers
-				}
-			});
-
 		}
 
 		/*
