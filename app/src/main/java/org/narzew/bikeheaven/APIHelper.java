@@ -617,13 +617,13 @@ public class APIHelper {
     }
 
     /**
-     * Get climb data (with points and elevations)
+     * Get climb data (with points, elevations and curves)
      *
      * @param id Climb ID
      * @return Climb information without points and slopes) in 3 parts of JSON format, separated by ^climb_split^.
      */
 
-    public String get_climb_points(Integer id) {
+    public String get_climb_details(Integer id) {
 
         // Check internet connection
         hasActiveInternetConnection();
@@ -636,7 +636,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH + "/climbs/get_climb_points.php");
+                    HttpPost httppost = new HttpPost(SERVER_PATH + "/climbs/get_climb_details.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(1);
                     params.add(new BasicNameValuePair("id", id + ""));

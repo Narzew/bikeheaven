@@ -1,5 +1,8 @@
 require 'json'
+require 'find'
 require 'polylines'
+
+$global_sql = "";
 
 def distance loc1, loc2
   rad_per_deg = Math::PI/180  # PI / 180
@@ -18,7 +21,7 @@ def distance loc1, loc2
   rm * c # Delta in meters
 end
 
-def calculate_waypoints_for_json(file, output)
+def calculate_waypoints_for_json(file)
 	points_data = []
 	result = ""
 	points_with_distance = []
@@ -31,60 +34,48 @@ def calculate_waypoints_for_json(file, output)
 	count = 0
 	totaldistance = 0
 	decoded_coords.each{|x|
-	if old_x == 0.0 || old_y == 0.0
-		old_x = x[0]
-		old_y = x[1]
-		#print "[#{x[0]},#{x[1]},#{totaldistance}]\n"
-		points_with_distance << [x[0],x[1],totaldistance]
-		count+=1
-		next
-	else
-		a = distance [old_x,old_y],[x[0],x[1]]
-		totaldistance += a
-		#print "[#{x[0]},#{x[1]},#{totaldistance}]\n"
-		points_with_distance << [x[0],x[1],totaldistance] 
-		old_x = x[0]
-		old_y = x[1]
-		count += 1
-	end
+		if old_x == 0.0 || old_y == 0.0
+			old_x = x[0]
+			old_y = x[1]
+			points_with_distance << [x[0],x[1],totaldistance,count]
+			count+=1
+			next
+		else
+			a = distance [old_x,old_y],[x[0],x[1]]
+			totaldistance += a
+			points_with_distance << [x[0],x[1],totaldistance,count] 
+			old_x = x[0]
+			old_y = x[1]
+			count += 1
+		end
+	}
+	return points_with_distance
 end
 
-# Warning! Uncompleted and malfuncioning code below !!
-=begin
-old_point_data = []
-act_point_height = 0
-act_coord = []
-$points_with_distance.each{|x|
-	if old_point_data == []
-		old_point_data = x
-		act_point_height = x[2]
-		act_coord = x
-		next
-	else
-		# Synonyms
-		p1 = old_point_data
-		p2 = x
-		
-		# Calculate distance difference and actual point height
-		distance_difference = x[2]-old_point_data[2]
-		act_point_height += distance_difference
-		
-		# Check that act_point_height > 100, if yes, then calculate n coefficient and associated coords.
-		# Calculate n coefficient
-		# Warning! Not completed!! Not working properly !!!
-		if act_point_height >= 100
-			act_coord = x
-			n_left = 1/(p2[2]-p1[2])*100
-			n_right = 1-n_left
-			print "Warning!" if n_left > 1 or n_right > 1
-			average_x = (p1[0]*n_left+p2[0]*n_right)
-			average_y = (p1[1]*n_right+p2[1]*n_right)
-			$points_every_one_hundred_meters << [average_x,average_y]
-			act_point_height -= 100
-		end
-		# set old_point_data to current point before loading next point
-		old_point_data = x
-	end
-}
-print $points_every_one_hundred_meters
-=end
+def generate_sql(pointsarray,climb_id)
+	s = "insert into climb_curves (id,nr,x,y,d,e) values\n"
+	pointsarray.each{|x|
+		s << "(#{climb_id},#{x[3]},#{x[0]},#{x[1]},#{x[2]},0),\n"
+	}
+	s[-2] = ";"
+	print "Climb #{climb_id} parsed.\n"
+	return s
+end
+
+def generate_sql_for_file(filename)
+	climb_id = filename.split("climb")[2].split(".json")[0]
+	$global_sql << generate_sql(calculate_waypoints_for_json(filename),climb_id)
+end
+
+def save_global_sql
+	print "Saving .sql..\n"
+	File.open("climb_directions/database.sql","wb"){|w| w.write($global_sql) }
+end
+
+begin
+	Find.find('climb_directions/json').each{|x|
+		next if File.directory?(x) || x.split(".")[-1] != "json"
+		generate_sql_for_file(x)
+	}
+	save_global_sql
+end
