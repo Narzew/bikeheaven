@@ -21,21 +21,21 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 public class DBHelper {
-	
+
 	protected Context context;
-	private String PREFS_NAME = "AltimetrPrefs";
-	private static final String DB_NAME = "altimetr.db";
+	private String PREFS_NAME = "BikeHeavenPrefs";
+	private static final String DB_NAME = "bikeheaven.db";
 	ContextWrapper cw;
 	String db_path;
 	Integer DB_VERSION = 1618; // Wersja bazy danych
-	
+
 	// Zmienne do nachylenia na mapie
 	Integer POINT_NORMAL = 0;
 	Integer POINT_START = 1;
 	Integer POINT_FINISH = 2;
-	
+
 	public DBHelper(Context context){
-		//super(context, "altimetr.db", null, 1);
+		//super(context, "bikeheaven.db", null, 1);
 		this.context = context;
 		cw = new ContextWrapper(context);
 		db_path = cw.getFilesDir().getAbsolutePath()+ "/databases/";
@@ -45,65 +45,64 @@ public class DBHelper {
 		openDatabase();
 		return true;
 	}
-	
+
 	public SQLiteDatabase openDatabase() {
-        File dbFile = context.getDatabasePath(DB_NAME);
-        Log.d("AltimetrDB","dbFile variable = "+dbFile.toString());
-        if (!dbFile.exists()) {
-            copyDatabase();
-            put_int("db_version", DB_VERSION);
-        } else {
+		File dbFile = context.getDatabasePath(DB_NAME);
+		Log.d("BikeHeavenDB","dbFile variable = "+dbFile.toString());
+		if (!dbFile.exists()) {
+			copyDatabase();
+			put_int("db_version", DB_VERSION);
+		} else {
 			SharedPreferences sharedpreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 			if(DB_VERSION>sharedpreferences.getInt("db_version",0)){
 				// Nieaktualna baza danych
-				copyDatabase();
-				put_int("db_version", DB_VERSION);
-				Log.d("AltimetrDB", "Database updated");
+				updateDatabase();
+				Log.d("BikeHeavenDB", "Database updated");
 			} else {
-				Log.d("AltimetrDB", "Database up to date");
+				Log.d("BikeHeavenDB", "Database up to date");
 			}
 		}
-        return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READONLY);
-    }
+		return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READONLY);
+	}
 
-    private void copyDatabase(){
-        Log.d("AltimetrDB", "Prepare for database copying");
-        String path = "/data/data/org.narzew.altimetr/databases/altimetr.db";
-        File dbfolder = new File("/data/data/org.narzew.altimetr/databases");
-        if(!dbfolder.exists()){
+	private void updateDatabase(){
+		Log.d("BikeHeavenDB", "Prepare for database update");
+		String path = "/data/data/org.narzew.bikeheaven/databases/bikeheaven.db";
+		File dbfolder = new File("/data/data/org.narzew.bikeheaven/databases");
+		if(!dbfolder.exists()){
 			dbfolder.mkdir();
 		}
-        byte[] buffer = new byte[1024];
-        OutputStream myOutput = null;
-        int length;
-        InputStream myInput = null;
-        try
-        {
-            myInput = context.getAssets().open(DB_NAME);
-            //myOutput =new FileOutputStream(db_path + DB_NAME);
-            myOutput = new FileOutputStream("/data/data/org.narzew.altimetr/databases/altimetr.db");
-            while((length = myInput.read(buffer)) > 0){
-                myOutput.write(buffer, 0, length);
-            }
-            myOutput.close();
-            myOutput.flush();
-            myInput.close();
-            Log.d("AltimetrDB","Database copied");
-        }
-        catch(IOException e)
-        {
-			Log.d("AltimetrDB", "Fail to copy database");
-            e.printStackTrace();
-        }
-    }
-	
+		byte[] buffer = new byte[1024];
+		OutputStream myOutput = null;
+		int length;
+		InputStream myInput = null;
+		try
+		{
+			myInput = context.getAssets().open(DB_NAME);
+			//myOutput =new FileOutputStream(db_path + DB_NAME);
+			myOutput = new FileOutputStream("/data/data/org.narzew.bikeheaven/databases/bikeheaven.db");
+			while((length = myInput.read(buffer)) > 0){
+				myOutput.write(buffer, 0, length);
+			}
+			myOutput.close();
+			myOutput.flush();
+			myInput.close();
+			Log.d("BikeHeavenDB","Database copied");
+		}
+		catch(IOException e)
+		{
+			Log.d("BikeHeavenDB", "Fail to copy database");
+			e.printStackTrace();
+		}
+	}
+
 	public void put_int(String name, Integer value){
 		SharedPreferences sharedpreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedpreferences.edit();
 		editor.putInt(name, value);
 		editor.commit();
 	}
-	
+
 	public String file_read(String filename){
 		InputStream input;
 		String text = "";
@@ -120,28 +119,28 @@ public class DBHelper {
 		}
 		return text;
 	}
-	
+
 	public Cursor getAllClimbs(){
 		SQLiteDatabase database = openDatabase();
 		return database.rawQuery("select id, name, slope, description, author, points, start_x, start_y, end_x, end_y, region, comments, dbname, stravaseg from climbs order by id asc", null, null);
 	}
-	
+
 	public Cursor getRegionClimbs(int region_id){
 		SQLiteDatabase database = openDatabase();
 		return database.rawQuery("select id, name, slope, description, author, points, start_x, start_y, end_x, end_y, region, comments, dbname, stravaseg from climbs where region = "+region_id+" order by id asc", null, null);
 	}
-	
+
 	public Cursor getClimb(int id){
 		SQLiteDatabase database = openDatabase();
 		return database.rawQuery("select id, name, slope, description, author, points, start_x, start_y, end_x, end_y, region, comments, dbname, stravaseg from climbs where id = "+id, null, null);
 	}
-	
+
 	public String getClimbName(int id){
 		Cursor cursor = getClimb(id);
 		cursor.moveToFirst();
 		return cursor.getString(1);
 	}
-	
+
 	public Integer getRegionIdLatLng(double lat, double lng){
 		Cursor cursor;
 		SQLiteDatabase database = openDatabase();
@@ -153,7 +152,7 @@ public class DBHelper {
 			return 0;
 		}
 	}
-	
+
 	public Integer getClimbIdLatLng(double lat, double lng){
 		Cursor cursor;
 		SQLiteDatabase database = openDatabase();
@@ -174,38 +173,38 @@ public class DBHelper {
 			return 0;
 		}
 	}
-	
+
 	public Cursor getClimbPoints(int id){
 		SQLiteDatabase database = openDatabase();
 		return database.rawQuery("select climb_id, point_nr, point_x, point_y from climb_points where climb_id = " + id + " order by point_nr asc", null, null);
 	}
-	
+
 	public Cursor getClimbSlopes(int id){
 		SQLiteDatabase database = openDatabase();
 		return database.rawQuery("select climb_id, point_distance, elevation from climb_slopes where climb_id = " + id + " order by point_distance asc", null, null);
 	}
-	
+
 	public Cursor getAllRegions(){
 		SQLiteDatabase database = openDatabase();
 		return database.rawQuery("select id, name, description, center_x, center_y, zoom from regions", null, null);
 	}
-	
+
 	public Cursor getRegion(int id){
 		SQLiteDatabase database = openDatabase();
 		return database.rawQuery("select name, description, center_x, center_y, zoom from regions where id = "+id+" limit 1", null, null);
 	}
-	
+
 	public String get_region_name(int id){
 		SQLiteDatabase database = openDatabase();
 		Cursor cursor = database.rawQuery("select name from regions where id = "+id, null, null);
 		cursor.moveToFirst();
 		return cursor.getString(0);
 	}
-	
+
 	public double calculate_slope(double elevmin, double elevmax){
 		return elevmax-elevmin;
 	}
-	
+
 	public String getPointSlope(int climb_id, int point, int special){
 		// special 0 => just point
 		// special 1 => start
@@ -216,7 +215,7 @@ public class DBHelper {
 		Cursor slopecursor = getClimbSlopes(climb_id);
 		double elev1=0.0, elev2=0.0, elevmin=0.0, elevmax=0.0, distance=0.0, setlength = 0.0;
 		String slopetext = "";
-		
+
 		// Calculate setlength, minelev, maxelev
 		slopecursor.moveToFirst();
 		elevmin = slopecursor.getDouble(2);
@@ -225,7 +224,7 @@ public class DBHelper {
 		setlength = setlength*10;
 		slopecursor.moveToLast();
 		elevmax = slopecursor.getDouble(2);
-		
+
 		if(special == POINT_NORMAL){
 			// Zwykły punkt
 			slopecursor.moveToPosition(point);
@@ -236,7 +235,7 @@ public class DBHelper {
 			// Meta
 			slopecursor.moveToLast();
 		}
-		
+
 		if(special == POINT_NORMAL){
 			elev1 = slopecursor.getDouble(2);
 			distance = slopecursor.getDouble(1);
@@ -267,7 +266,7 @@ public class DBHelper {
 		}
 		return slopetext;
 	}
-	
+
 	public String getSlopesStr(int id){
 		// Pokaż listę nachyleń odcinka
 		SharedPreferences sharedpreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -332,7 +331,7 @@ public class DBHelper {
 		odcinek = odcinek + "Meta podjazdu ("+round(elev1,roundtype)+"m)\n";
 		return odcinek;
 	}
-	
+
 	// Zaokrąglenie liczby
 	/*
 	public double round(double d, int n){
@@ -351,7 +350,7 @@ public class DBHelper {
 		long tmp = Math.round(value);
 		return (double)tmp/factor;
 	}
-	
+
 	public String get_category(double points){
 		if(points>=700){
 			return "HC";
@@ -373,7 +372,7 @@ public class DBHelper {
 			return "7";
 		}
 	}
-	
+
 	public Integer get_int_category(String category){
 		switch(category){
 			case "HC":
@@ -397,7 +396,7 @@ public class DBHelper {
 		}
 		return 0;
 	}
-	
+
 	public int get_category_resid(String category){
 		switch(category){
 			case "HC":
@@ -423,9 +422,9 @@ public class DBHelper {
 				return R.drawable.cat7;
 		}
 	}
-	
+
 	public int getColorBySlope(int slope){
-		Log.d("AltimetrDB", "Parsing slope: "+String.valueOf(slope));
+		Log.d("BikeHeavenDB", "Parsing slope: "+String.valueOf(slope));
 		if(slope<0){
 			return context.getResources().getColor(R.color.slope_downhill);
 		} else {
@@ -478,5 +477,5 @@ public class DBHelper {
 			}
 		}
 	}
-	
+
 }

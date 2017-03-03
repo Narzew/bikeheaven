@@ -42,6 +42,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.os.AsyncTask;
 
 public class MapsActivity extends ActionBarActivity implements OnItemClickListener {
 
@@ -387,5 +391,71 @@ public class MapsActivity extends ActionBarActivity implements OnItemClickListen
             return row;
        }
     }
+
+	public class GetPlaceData extends AsyncTask <Integer,String,String>{
+		String result;
+		int[] climb_id;
+		Double[] points, start_x, start_y;
+		String[] name, slope;
+
+		@Override
+		protected String doInBackground(Integer... params) {
+			APIHelper apiHelper=new APIHelper(context);
+			result=apiHelper.get_all_climbs();
+			get_api_data(result);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String i){
+			super.onPostExecute(i);
+			listView.setAdapter(new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,rank));
+			listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					// Show markers
+				}
+			});
+
+		}
+
+		/*
+		Integer climb_id;
+		Double points;
+		LatLng coords;
+		String name, slope;
+		*/
+
+		public void get_api_data(String jsonstr){
+
+			Integer jsonlength;
+			if (jsonstr != null){
+				try {
+					JSONArray jsonArray = new JSONArray(jsonstr);
+					jsonlength = jsonArray.length();
+					climb_id = new int[jsonlength];
+					points = new Double[jsonlength];
+					start_x = new Double[jsonlength];
+					start_y = new Double[jsonlength];
+					name = new String[jsonlength];
+					slope = new String[jsonlength];
+
+					for (int i = 0; i < jsonArray.length(); i++) {
+						JSONObject jObject= jsonArray.getJSONObject(i);
+						climb_id[i] = jObject.getInt("id");
+						points[i] = jObject.getDouble("points");
+						start_x[i] = jObject.getDouble("start_x");
+						start_y[i] = jObject.getDouble("start_y");
+						name[i] = jObject.getString("name");
+						slope[i] = jObject.getString("slope");
+					}
+				} catch(JSONException e){
+					e.printStackTrace();
+				} catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 		
 }
