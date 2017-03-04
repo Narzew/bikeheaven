@@ -12,13 +12,13 @@
     <string name="climb_link">Show climb page</string>
     <string name="checkbox_meta">Show climb finish (instead of climb start)</string>
     <string name="checkbox_regions">Region mode</string>
-    
+
     <string name="app_version">App version</string>
     <string name="app_authors">App authors</string>
     <string name="used_resources">Used resources</string>
     <string name="info_points">Points</string>
     <string name="info_categories">Climb categories</string>
-    
+
     <string name="climbinfo_name">Climb name</string>
     <string name="climbinfo_slope">Length and slope</string>
     <string name="climbinfo_description">Description</string>
@@ -35,52 +35,52 @@
     <string name="climbinfo_region_info">Show climbs from region</string>
     <string name="climbinfo_strava">Strava Segment</string>
     <string name="climbinfo_strava_segment">Show Strava segment</string>
-    
+
     <string name="settings_cat1">Show climbs from category</string>
     <string name="settings_cat2">to category</string>
     <string name="settings_elevation">Indicated elevation</string>
     <string name="settings_elevround">Slope rounding</string>
     <string name="settings_screen_orientation">Screen orientation</string>
-    
+
     <string name="menu_map">Climb map</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_informations">Informations</string>
-    
+
     <string name="regionlist_region_name">Region name</string>
     <string name="regionlist_region_description">Region description</string>
     <string name="regionlist_show_climbs">Show climbs from region</string>
-    
+
     <string-array name="menu">
-		<item>Mapa podjazdów</item>
-		<item>Ustawienia</item>
-		<item>Informacje</item>
+        <item>Mapa podjazdów</item>
+        <item>Ustawienia</item>
+        <item>Informacje</item>
     </string-array>
-    
+
     <string-array name="maptypes">
-		<item>Road map</item>
-		<item>Satellite map</item>
-		<item>Satellite map (clear)</item>
-		<item>Terrain map</item>
+        <item>Road map</item>
+        <item>Satellite map</item>
+        <item>Satellite map (clear)</item>
+        <item>Terrain map</item>
     </string-array>
-    
+
     <string-array name="elevtypes">
-		<item>Actual elevation</item>
-		<item>Passed elevation</item>
-		<item>Remaining elevation</item>
+        <item>Actual elevation</item>
+        <item>Passed elevation</item>
+        <item>Remaining elevation</item>
     </string-array>
-    
+
     <string-array name="sloperoundtypes">
-		<item>1 place after comma</item>
-		<item>2 places after comma</item>
-		<item>3 places after comma</item>
+        <item>1 place after comma</item>
+        <item>2 places after comma</item>
+        <item>3 places after comma</item>
     </string-array>
-    
+
     <string-array name="orientationtypes">
-		<item>Vertical (phone)</item>
-		<item>Horizontal (tablet)</item>
+        <item>Vertical (phone)</item>
+        <item>Horizontal (tablet)</item>
     </string-array>
-    
+
     <string name="rangeseekbar_min_label">HC</string>
     <string name="rangeseekbar_max_label">7</string>
-    
+
 </resources>
