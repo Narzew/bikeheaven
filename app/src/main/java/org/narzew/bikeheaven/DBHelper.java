@@ -23,11 +23,12 @@ import org.json.JSONArray;
 public class DBHelper {
 
 	protected Context context;
-	private String PREFS_NAME = "BikeHeavenPrefs";
-	private static final String DB_NAME = "bikeheaven.db";
+	private String PREFS_NAME = Config.PREFS_NAME;
+	private static final String DB_NAME = Config.DB_NAME;
+	private Integer DB_VERSION = Config.DB_VERSION; // Wersja bazy danych
 	ContextWrapper cw;
 	String db_path;
-	Integer DB_VERSION = 2198; // Wersja bazy danych
+
 
 	// Zmienne do nachylenia na mapie
 	Integer POINT_NORMAL = 0;
@@ -48,7 +49,7 @@ public class DBHelper {
 
 	public SQLiteDatabase openDatabase() {
 		File dbFile = context.getDatabasePath(DB_NAME);
-		Log.d("BikeHeavenDB","dbFile variable = "+dbFile.toString());
+		Log.d(Config.LOG_KEY,"dbFile variable = "+dbFile.toString());
 		if (!dbFile.exists()) {
 			copyDatabase();
 			put_int("db_version", DB_VERSION);
@@ -58,16 +59,16 @@ public class DBHelper {
 				// Nieaktualna baza danych
 				copyDatabase();
 				put_int("db_version", DB_VERSION);
-				Log.d("BikeHeavenDB", "Database updated");
+				Log.d(Config.LOG_KEY, "Database updated");
 			} else {
-				Log.d("BikeHeavenDB", "Database up to date");
+				Log.d(Config.LOG_KEY, "Database up to date");
 			}
 		}
 		return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READONLY);
 	}
 
 	private void copyDatabase(){
-		Log.d("BikeHeavenDB", "Prepare for database copying");
+		Log.d(Config.LOG_KEY, "Prepare for database copying");
 		String path = "/data/data/org.narzew.bikeheaven/databases/bikeheaven.db";
 		File dbfolder = new File("/data/data/org.narzew.bikeheaven/databases");
 		if(!dbfolder.exists()){
@@ -88,11 +89,11 @@ public class DBHelper {
 			myOutput.close();
 			myOutput.flush();
 			myInput.close();
-			Log.d("BikeHeavenDB","Database copied");
+			Log.d(Config.LOG_KEY,"Database copied");
 		}
 		catch(IOException e)
 		{
-			Log.d("BikeHeavenDB", "Fail to copy database");
+			Log.d(Config.LOG_KEY, "Fail to copy database");
 			e.printStackTrace();
 		}
 	}
@@ -123,17 +124,17 @@ public class DBHelper {
 
 	public Cursor getAllClimbs(){
 		SQLiteDatabase database = openDatabase();
-		return database.rawQuery("select id, name, slope, description, author, points, start_x, start_y, end_x, end_y, region, comments, dbname, stravaseg from climbs order by id asc", null, null);
+		return database.rawQuery("select id, name, slope, description, author, points, start_x, start_y, end_x, end_y, region, comments, dbname, stravaseg from climbs order by id asc", null);
 	}
 
 	public Cursor getRegionClimbs(int region_id){
 		SQLiteDatabase database = openDatabase();
-		return database.rawQuery("select id, name, slope, description, author, points, start_x, start_y, end_x, end_y, region, comments, dbname, stravaseg from climbs where region = "+region_id+" order by id asc", null, null);
+		return database.rawQuery("select id, name, slope, description, author, points, start_x, start_y, end_x, end_y, region, comments, dbname, stravaseg from climbs where region = "+region_id+" order by id asc", null);
 	}
 
 	public Cursor getClimb(int id){
 		SQLiteDatabase database = openDatabase();
-		return database.rawQuery("select id, name, slope, description, author, points, start_x, start_y, end_x, end_y, region, comments, dbname, stravaseg from climbs where id = "+id, null, null);
+		return database.rawQuery("select id, name, slope, description, author, points, start_x, start_y, end_x, end_y, region, comments, dbname, stravaseg from climbs where id = "+id, null);
 	}
 
 	public String getClimbName(int id){
@@ -145,7 +146,7 @@ public class DBHelper {
 	public Integer getRegionIdLatLng(double lat, double lng){
 		Cursor cursor;
 		SQLiteDatabase database = openDatabase();
-		cursor = database.rawQuery("select id from regions where center_x = "+lat+ " and center_y = "+lng , null, null);
+		cursor = database.rawQuery("select id from regions where center_x = "+lat+ " and center_y = "+lng , null);
 		if(cursor.getCount()>0){
 			cursor.moveToFirst();
 			return cursor.getInt(0);
@@ -161,10 +162,10 @@ public class DBHelper {
 		Boolean coords_mode = sharedpreferences.getBoolean("coords_mode", false);
 		if(coords_mode==false){
 			// Współrzędne startu
-			cursor = database.rawQuery("select id from climbs where start_x = "+lat+ " and start_y = "+lng , null, null);
+			cursor = database.rawQuery("select id from climbs where start_x = "+lat+ " and start_y = "+lng, null);
 		} else {
 			// Współrzędne mety
-			cursor = database.rawQuery("select id from climbs where end_x = "+lat+ " and end_y = "+lng , null, null);
+			cursor = database.rawQuery("select id from climbs where end_x = "+lat+ " and end_y = "+lng, null);
 		}
 		if(cursor.getCount()>0){
 			cursor.moveToFirst();
@@ -177,27 +178,27 @@ public class DBHelper {
 
 	public Cursor getClimbPoints(int id){
 		SQLiteDatabase database = openDatabase();
-		return database.rawQuery("select climb_id, point_nr, point_x, point_y from climb_points where climb_id = " + id + " order by point_nr asc", null, null);
+		return database.rawQuery("select climb_id, point_nr, point_x, point_y from climb_points where climb_id = " + id + " order by point_nr asc", null);
 	}
 
 	public Cursor getClimbSlopes(int id){
 		SQLiteDatabase database = openDatabase();
-		return database.rawQuery("select climb_id, point_distance, elevation from climb_slopes where climb_id = " + id + " order by point_distance asc", null, null);
+		return database.rawQuery("select climb_id, point_distance, elevation from climb_slopes where climb_id = " + id + " order by point_distance asc", null);
 	}
 
 	public Cursor getAllRegions(){
 		SQLiteDatabase database = openDatabase();
-		return database.rawQuery("select id, name, description, center_x, center_y, zoom from regions", null, null);
+		return database.rawQuery("select id, name, description, center_x, center_y, zoom from regions", null);
 	}
 
 	public Cursor getRegion(int id){
 		SQLiteDatabase database = openDatabase();
-		return database.rawQuery("select name, description, center_x, center_y, zoom from regions where id = "+id+" limit 1", null, null);
+		return database.rawQuery("select name, description, center_x, center_y, zoom from regions where id = "+id+" limit 1", null);
 	}
 
 	public String get_region_name(int id){
 		SQLiteDatabase database = openDatabase();
-		Cursor cursor = database.rawQuery("select name from regions where id = "+id, null, null);
+		Cursor cursor = database.rawQuery("select name from regions where id = "+id, null);
 		cursor.moveToFirst();
 		return cursor.getString(0);
 	}
@@ -425,7 +426,7 @@ public class DBHelper {
 	}
 
 	public int getColorBySlope(int slope){
-		Log.d("BikeHeavenDB", "Parsing slope: "+String.valueOf(slope));
+		Log.d(Config.LOG_KEY, "Parsing slope: "+String.valueOf(slope));
 		if(slope<0){
 			return context.getResources().getColor(R.color.slope_downhill);
 		} else {

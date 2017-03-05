@@ -180,7 +180,7 @@ public class ClimbMapActivity extends ActionBarActivity implements OnItemClickLi
 		do {
 			addMarker(new LatLng(climb_points.getDouble(2), climb_points.getDouble(3)),dbhelper.getPointSlope(climb_id, climb_points.getInt(1),POINT_NORMAL),TYPE_POINT);
 		} while(climb_points.moveToNext());
-		Log.d("AltimetrDB", "Drawing polylines");
+		Log.d(Config.LOG_KEY, "Drawing polylines");
 		drawPolylines(climb_id);
 	}
 	

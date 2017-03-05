@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -32,6 +33,10 @@ import android.widget.Toast;
 import android.widget.ImageView;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DBUpdateActivity extends ActionBarActivity implements OnItemClickListener {
 
@@ -74,7 +79,9 @@ public class DBUpdateActivity extends ActionBarActivity implements OnItemClickLi
 
     }
 
-    public void updateDatabase(View v){
+    public void update_database_clicked(View v){
+        DBUpdateTask updatedb_task = new DBUpdateTask();
+        updatedb_task.execute();
         // Update database code here
     }
 
@@ -190,6 +197,68 @@ public class DBUpdateActivity extends ActionBarActivity implements OnItemClickLi
                     break;
             }
             return row;
+        }
+    }
+
+    public class DBUpdateTask extends AsyncTask<Integer,String,String> {
+        String result;
+        int[] climb_id;
+        Double[] points, start_x, start_y;
+        String[] name, slope;
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            APIHelper apiHelper=new APIHelper(context);
+            // Check current DB version on server
+            // Compare it to local version
+            // If version is different then delete whole database and download again;
+            // DEBUG: Download test climbs
+            result=apiHelper.get_test_climbs(30);
+            parse_climb_json(result);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String i){
+            super.onPostExecute(i);
+        }
+
+		/*
+		Integer climb_id;
+		Double points;
+		LatLng coords;
+		String name, slope;
+		*/
+
+        public void parse_climb_json(String jsonstr){
+
+            Integer jsonlength;
+            if (jsonstr != null){
+                try {
+                    JSONArray jsonArray = new JSONArray(jsonstr);
+                    jsonlength = jsonArray.length();
+                    climb_id = new int[jsonlength];
+                    points = new Double[jsonlength];
+                    start_x = new Double[jsonlength];
+                    start_y = new Double[jsonlength];
+                    name = new String[jsonlength];
+                    slope = new String[jsonlength];
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jObject= jsonArray.getJSONObject(i);
+                        climb_id[i] = jObject.getInt("id");
+                        points[i] = jObject.getDouble("points");
+                        start_x[i] = jObject.getDouble("start_x");
+                        start_y[i] = jObject.getDouble("start_y");
+                        name[i] = jObject.getString("name");
+                        slope[i] = jObject.getString("slope");
+                    }
+                } catch(JSONException e){
+                    e.printStackTrace();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

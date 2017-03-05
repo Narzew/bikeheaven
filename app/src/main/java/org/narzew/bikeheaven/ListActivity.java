@@ -77,7 +77,7 @@ public class ListActivity extends ActionBarActivity implements OnItemClickListen
 			cursor.getDouble(9)
 			));
 			cursor.moveToNext();
-			Log.d("AltimetrDB", "Moved cursor");
+			Log.d(Config.LOG_KEY, "Moved cursor");
 		}
 			
         ClimbAdapter climbadapter = new ClimbAdapter(ListActivity.this, list);
@@ -169,7 +169,7 @@ public class ListActivity extends ActionBarActivity implements OnItemClickListen
         public ClimbAdapter (Context c,List<Climb> list){
             this.lista = list;
             String count = new Integer(list.size()).toString(); // DEBUG
-            Log.d("AltimetrDB",count); // DEBUG
+            Log.d(Config.LOG_KEY,count); // DEBUG
             this.c = c;
 			inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }

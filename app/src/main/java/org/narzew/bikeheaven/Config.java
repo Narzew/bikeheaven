@@ -24,6 +24,8 @@ public class Config {
     public static final int CITY_MAX = 40;
     public static final int DESCRIPTION_MIN_CHARS = 0;
     public static final int DESCRIPTION_MAX_CHARS = 50;
+    public static final String DB_NAME = "bikeheaven.db";
+    public static final int DB_VERSION = 1;
 
 
     public Config(Context context) {

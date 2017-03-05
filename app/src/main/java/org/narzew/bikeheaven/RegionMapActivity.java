@@ -186,7 +186,7 @@ public class RegionMapActivity extends ActionBarActivity implements OnItemClickL
 		.icon(BitmapDescriptorFactory.fromResource(category_resid));
 		// Dodaj marker
 		googleMap.addMarker(markerOptions);
-		//Log.d("AltimetrDB", "Added marker "+title);
+		//Log.d(Config.LOG_KEY, "Added marker "+title);
 		// Dodaj listener do markera
 		googleMap.setOnMarkerClickListener(new OnMarkerClickListener(){
 			@Override
@@ -196,7 +196,7 @@ public class RegionMapActivity extends ActionBarActivity implements OnItemClickL
 				double point_y = position.longitude;
 				DBHelper dbhelper = new DBHelper(context);
 				Integer marker_id = dbhelper.getClimbIdLatLng(point_x, point_y);
-				//Log.d("AltimetrDB", (String)marker_id.toString());
+				//Log.d(Config.LOG_KEY, (String)marker_id.toString());
 				// Open Climb info
 				Intent intent = new Intent(context, ClimbInfoActivity.class);
 				intent.putExtra("climb_id", marker_id);

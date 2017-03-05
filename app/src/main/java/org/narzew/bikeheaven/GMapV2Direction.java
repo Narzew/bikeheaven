@@ -24,6 +24,7 @@ import android.util.Log;
 public class GMapV2Direction {
     public final static String MODE_DRIVING = "driving";
     public final static String MODE_WALKING = "walking";
+    public final static String MODE_BICYCLING = "bicycling";
 
     public GMapV2Direction() { }
 
@@ -32,7 +33,7 @@ public class GMapV2Direction {
                 + "origin=" + start.latitude + "," + start.longitude  
                 + "&destination=" + end.latitude + "," + end.longitude 
                 + "&sensor=false&units=metric&mode="+mode
-                + "&key=AIzaSyCjIxXUGbLtdzRPDs3da9U0HIJzSDmileE";
+                + "&key=";
 
         try {
             HttpClient httpClient = new DefaultHttpClient();

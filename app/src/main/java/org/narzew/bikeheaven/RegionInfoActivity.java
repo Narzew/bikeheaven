@@ -87,7 +87,7 @@ public class RegionInfoActivity extends ActionBarActivity implements OnItemClick
         
         // Wypełnienie danymi
         
-        Log.d("AltimetrDB", "Region ID: "+region_id);
+        Log.d(Config.LOG_KEY, "Region ID: "+region_id);
         Cursor region_data = dbhelper.getRegion(region_id);
         if(region_data != null && region_data.moveToFirst()){
 			region_name.setText(region_data.getString(0));

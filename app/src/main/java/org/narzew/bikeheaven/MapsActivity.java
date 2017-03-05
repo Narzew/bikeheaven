@@ -247,7 +247,7 @@ public class MapsActivity extends ActionBarActivity implements OnItemClickListen
 		.icon(BitmapDescriptorFactory.fromResource(category_resid));
 		// Dodaj marker
 		googleMap.addMarker(markerOptions);
-		//Log.d("AltimetrDB", "Added marker "+title);
+		//Log.d(Config.LOG_KEY, "Added marker "+title);
 		// Dodaj listener do markera
 		googleMap.setOnMarkerClickListener(new OnMarkerClickListener(){
 			@Override
