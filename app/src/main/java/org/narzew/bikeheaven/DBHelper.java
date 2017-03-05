@@ -181,6 +181,11 @@ public class DBHelper {
 		return database.rawQuery("select climb_id, point_nr, point_x, point_y from climb_points where climb_id = " + id + " order by point_nr asc", null);
 	}
 
+	public Cursor getClimbCurves(int id){
+		SQLiteDatabase database = openDatabase();
+		return database.rawQuery("select nr,x, y, d, e from climb_curves where id = " + id + " order by nr asc", null);
+	}
+
 	public Cursor getClimbSlopes(int id){
 		SQLiteDatabase database = openDatabase();
 		return database.rawQuery("select climb_id, point_distance, elevation from climb_slopes where climb_id = " + id + " order by point_distance asc", null);

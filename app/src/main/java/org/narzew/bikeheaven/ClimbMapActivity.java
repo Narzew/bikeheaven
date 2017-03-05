@@ -180,39 +180,44 @@ public class ClimbMapActivity extends ActionBarActivity implements OnItemClickLi
 		do {
 			addMarker(new LatLng(climb_points.getDouble(2), climb_points.getDouble(3)),dbhelper.getPointSlope(climb_id, climb_points.getInt(1),POINT_NORMAL),TYPE_POINT);
 		} while(climb_points.moveToNext());
-		Log.d(Config.LOG_KEY, "Drawing polylines");
 		drawPolylines(climb_id);
 	}
-	
+
 	public void drawPolylines(int climb_id){
+		Log.d(Config.LOG_KEY, "Drawing polylines");
 		SharedPreferences sharedpreferences = this.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		DBHelper dbhelper = new DBHelper(context);
-		Cursor climb_points = dbhelper.getClimbPoints(climb_id);
-		climb_points.moveToFirst();
+		Cursor climb_curves = dbhelper.getClimbCurves(climb_id);
+		climb_curves.moveToFirst();
 		Cursor climb_slopes = dbhelper.getClimbSlopes(climb_id);
 		climb_slopes.moveToFirst();
 		Cursor climb_data = dbhelper.getClimb(climb_id);
 		climb_data.moveToFirst();
-		double tmp_x = climb_points.getDouble(2);
-		double tmp_y = climb_points.getDouble(3);
+		double tmp_x = climb_curves.getDouble(1);
+		double tmp_y = climb_curves.getDouble(2);
 		LatLng start_coords;
 		LatLng end_coords;
 		int count = 0;
 		PolylineOptions rectLine;
-		int poly_width = sharedpreferences.getInt("polyline_width", 10);
+		int poly_width = sharedpreferences.getInt("polyline_width", 15);
 		int slope;
 		double elev1 = 0.0, elev2 = 0.0;
 		// Add points rectline
 		do {
 			if(count==0){
-				tmp_x = climb_points.getDouble(2);
-				tmp_y = climb_points.getDouble(3);
+				// If this is a first point
+				tmp_x = climb_curves.getDouble(2);
+				tmp_y = climb_curves.getDouble(3);
 				// Add start rectline
+				// Temporary solution! no elevation data currently in Database! So I have set slope to 5;
+				/*
 				climb_slopes.moveToFirst();
 				elev1 = climb_slopes.getDouble(2);
 				climb_slopes.moveToPosition(1);
 				elev2 = climb_slopes.getDouble(2);
 				slope = (int)Math.round(elev2-elev1);
+				*/
+				slope = 5;
 				rectLine = new PolylineOptions().width(poly_width).color(dbhelper.getColorBySlope(slope));
 				rectLine.add(new LatLng(climb_data.getDouble(6), climb_data.getDouble(7)), new LatLng(tmp_x, tmp_y));
 				googleMap.addPolyline(rectLine);
@@ -221,8 +226,10 @@ public class ClimbMapActivity extends ActionBarActivity implements OnItemClickLi
 			} else {
 				// Metoda rozdzielająca
 				start_coords = new LatLng(tmp_x, tmp_y);
-				end_coords = new LatLng(climb_points.getDouble(2), climb_points.getDouble(3));
+				end_coords = new LatLng(climb_curves.getDouble(1), climb_curves.getDouble(2));
+				// Temporary solution! no elevation data currently in Database! So I have set slope to 5;
 				// Calculate slopes
+				/*
 				if(elev1 == 0.0){
 					climb_slopes.moveToPosition(count);
 					elev1 = climb_slopes.getDouble(2);
@@ -230,26 +237,34 @@ public class ClimbMapActivity extends ActionBarActivity implements OnItemClickLi
 				climb_slopes.moveToPosition(count);
 				elev2 = climb_slopes.getDouble(2);
 				slope = (int)Math.round(elev2-elev1);
-				
+				*/
+				slope = 5;
+
 				// Draw polyline
 				rectLine = new PolylineOptions().width(poly_width).color(dbhelper.getColorBySlope(slope));
 				rectLine.add(start_coords, end_coords);
 				googleMap.addPolyline(rectLine);
-				
-				// Rest code
-				tmp_x = climb_points.getDouble(2);
-				tmp_y = climb_points.getDouble(3);
-				elev1 = elev2;
+
+				// Set temp climb points
+				// nr,x,y,d,e
+				tmp_x = climb_curves.getDouble(1);
+				tmp_y = climb_curves.getDouble(2);
+				// Uncomment below when elevations will be done
+				//elev1 = elev2;
 				count++;
 			}
-		} while(climb_points.moveToNext());
+		} while(climb_curves.moveToNext());
 		// Add finish rectline
+		// Uncomment below when elevations will be done
+		/*
 		climb_slopes.moveToLast();
 		
 		elev2 = climb_slopes.getDouble(2);
 		climb_slopes.moveToPrevious();
 		elev1 = climb_slopes.getDouble(2);
 		slope = (int)Math.round(elev2-elev1);
+		*/
+		slope = 5;
 		rectLine = new PolylineOptions().width(poly_width).color(dbhelper.getColorBySlope(slope));
 		rectLine.add(new LatLng(tmp_x, tmp_y), new LatLng(climb_data.getDouble(8), climb_data.getDouble(9)));
 		googleMap.addPolyline(rectLine);
