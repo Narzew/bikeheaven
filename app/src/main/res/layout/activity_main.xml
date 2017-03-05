@@ -2,57 +2,58 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
+    android:layout_height="match_parent">
     <FrameLayout
         android:id="@+id/mainContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-    <Button
-        android:id="@+id/button_climb_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/climb_map"
-        android:onClick="climb_map_clicked"/>
-
-    <Button
-        android:id="@+id/button_setings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_activity"
-        android:onClick="settings_settings"/>
-
-    <Button
-        android:id="@+id/button_appinfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_info"
-        android:onClick="app_info_clicked"/>
-
-    <Button
-        android:id="@+id/button_update_database"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update database"
-        android:onClick="update_database_clicked"/>
-
-    <Button
-        android:id="@+id/button_sample_climb_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sample climb information"
-        android:onClick="sample_climb_information_clicked"/>
-
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:id="@+id/main_layout">
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/button_climb_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/climb_map"
+                    android:onClick="climb_map_clicked" />
+                <Button
+                    android:id="@+id/button_setings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_activity"
+                    android:onClick="settings_settings" />
+                <Button
+                    android:id="@+id/button_appinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_info"
+                    android:onClick="app_info_clicked" />
+                <Button
+                    android:id="@+id/button_update_database"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update database"
+                    android:onClick="update_database_clicked" />
+                <Button
+                    android:id="@+id/button_sample_climb_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sample climb information"
+                    android:onClick="sample_climb_information_clicked" />
+            </ScrollView>
+        </LinearLayout>
     </FrameLayout>
-
     <ListView
         android:id="@+id/drawerList"
         android:entries="@array/menu"
         android:divider="@null"
         android:layout_width="@dimen/drawer_left_width"
         android:layout_height="match_parent"
-        android:layout_gravity="left" >
-    </ListView>
-
+        android:layout_gravity="left"></ListView>
 </android.support.v4.widget.DrawerLayout>

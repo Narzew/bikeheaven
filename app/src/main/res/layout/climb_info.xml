@@ -1,219 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawerLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-    <FrameLayout
-        android:id="@+id/mainContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        
-        <ScrollView>
-        <LinearLayout
+	android:id="@+id/drawerLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<FrameLayout
+		android:id="@+id/mainContent"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<ScrollView
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:orientation="vertical"
-			 >
-			 
-	  <TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_name" />
-	
-	  <TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="20dp"
-			android:id="@+id/climb_name" />
-			
-	  <TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_slope" />
-			
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:textSize="20dp"
-		android:id="@+id/climb_slope" />
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:textSize="25dp"
-		android:text="@string/climbinfo_region" />
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:textSize="20dp"
-		android:id="@+id/climb_region" />
-		
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="@string/climbinfo_region_info"
-		android:onClick="show_region_info"
-		android:visibility="gone" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_description" />
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:id="@+id/climb_description" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_comments"
-			android:id="@+id/climb_comments2" />
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="@string/climbinfo_nocomments"
-		android:id="@+id/climb_comments" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_author" />
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:textSize="20dp"
-		android:id="@+id/climb_author" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_points" />	
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:textSize="20dp"
-		android:id="@+id/climb_points" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_category" />
-			
-	<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:id="@+id/category_pic" />
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text=""
-		android:id="@+id/category_text"
-		android:textSize="20dp" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_slopes" />
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:id="@+id/climb_slope_list" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_map" />
-		
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="@string/climb_map"
-		android:onClick="show_climb_map"
-		android:id="@+id/show_map_button" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp"
-			android:text="@string/climbinfo_site" />
-		
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="@string/climb_link"
-		android:onClick="show_climb_page"
-		android:id="@+id/show_altimetr_button" />
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:textSize="25dp"
-		android:text="@string/climbinfo_strava"
-		android:id="@+id/strava_text" />
-		
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="@string/climbinfo_strava_segment"
-		android:onClick="show_strava_segment"
-		android:id="@+id/strava_button" />
-	
-
-	</LinearLayout>
-	</ScrollView>
-    </FrameLayout>
-    
+			android:orientation="vertical">
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:orientation="vertical">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_name" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="20dp"
+					android:id="@+id/climb_name" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_slope" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="20dp"
+					android:id="@+id/climb_slope" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_region" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="20dp"
+					android:id="@+id/climb_region" />
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/climbinfo_region_info"
+					android:onClick="show_region_info"
+					android:visibility="gone" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_description" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:id="@+id/climb_description" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_comments"
+					android:id="@+id/climb_comments2" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/climbinfo_nocomments"
+					android:id="@+id/climb_comments" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_author" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="20dp"
+					android:id="@+id/climb_author" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_points" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="20dp"
+					android:id="@+id/climb_points" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_category" />
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:id="@+id/category_pic" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text=""
+					android:id="@+id/category_text"
+					android:textSize="20dp" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_slopes" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:id="@+id/climb_slope_list" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_map" />
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/climb_map"
+					android:onClick="show_climb_map"
+					android:id="@+id/show_map_button" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_site" />
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/climb_link"
+					android:onClick="show_climb_page"
+					android:id="@+id/show_altimetr_button" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp"
+					android:text="@string/climbinfo_strava"
+					android:id="@+id/strava_text" />
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/climbinfo_strava_segment"
+					android:onClick="show_strava_segment"
+					android:id="@+id/strava_button" />
+			</LinearLayout>
+		</ScrollView>
+	</FrameLayout>
 	<ListView
-	    android:id="@+id/drawerList"
-	    android:entries="@array/menu"
+		android:id="@+id/drawerList"
+		android:entries="@array/menu"
 		android:divider="@null"
-	    android:layout_width="@dimen/drawer_left_width"
-	    android:layout_height="match_parent"
-	    android:layout_gravity="left" >
-	</ListView>
-    
+		android:layout_width="@dimen/drawer_left_width"
+		android:layout_height="match_parent"
+		android:layout_gravity="left"></ListView>
 </android.support.v4.widget.DrawerLayout>

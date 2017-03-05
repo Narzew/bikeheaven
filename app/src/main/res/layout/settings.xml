@@ -1,106 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawerLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-    <FrameLayout
-        android:id="@+id/mainContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        
-        <ScrollView>
-        <LinearLayout
+	android:id="@+id/drawerLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<FrameLayout
+		android:id="@+id/mainContent"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<ScrollView
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:orientation="vertical"
-			android:id="@+id/main_layout" > 
-	
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:text="Typ mapy"
-			android:textSize="22dp"
-			android:id="@+id/maptype_text" />
-	
-		<Spinner
-			android:id="@+id/maptype_spinner"
-			android:layout_width="fill_parent"
-    		android:layout_height="wrap_content" />
-    		
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:text="@string/settings_elevation"
-			android:textSize="22dp"
-			android:id="@+id/elevtype_text" />
-	
-		<Spinner
-			android:id="@+id/elevtype_spinner"
-			android:layout_width="fill_parent"
-    		android:layout_height="wrap_content" />
-    		
-    	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:text="@string/settings_elevround"
-			android:textSize="22dp"
-			android:id="@+id/sloperound_text" />
-	
-		<Spinner
-			android:id="@+id/sloperound_spinner"
-			android:layout_width="fill_parent"
-    		android:layout_height="wrap_content" />
-    		
-    	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:text="@string/settings_screen_orientation"
-			android:textSize="22dp"
-			android:id="@+id/screen_orientation_text" />
-    		
-    	<Spinner
-			android:id="@+id/orientation_spinner"
-			android:layout_width="fill_parent"
-    		android:layout_height="wrap_content" />
-    		
-    	<CheckBox
-			android:id="@+id/checkbox_meta"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/checkbox_meta"
-			android:onClick="checkbox_clicked" />
-			
-		 <CheckBox
-			android:id="@+id/checkbox_regions"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/checkbox_regions"
-			android:onClick="checkbox_clicked" />
-			
-			
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:text=""
-			android:id="@+id/rangeseekbar_text" />
-
-	</LinearLayout>
-	</ScrollView>
-    </FrameLayout>
-    
+			android:orientation="vertical">
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:orientation="vertical"
+				android:id="@+id/main_layout">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="Typ mapy"
+					android:textSize="22dp"
+					android:id="@+id/maptype_text" />
+				<Spinner
+					android:id="@+id/maptype_spinner"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/settings_elevation"
+					android:textSize="22dp"
+					android:id="@+id/elevtype_text" />
+				<Spinner
+					android:id="@+id/elevtype_spinner"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/settings_elevround"
+					android:textSize="22dp"
+					android:id="@+id/sloperound_text" />
+				<Spinner
+					android:id="@+id/sloperound_spinner"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/settings_screen_orientation"
+					android:textSize="22dp"
+					android:id="@+id/screen_orientation_text" />
+				<Spinner
+					android:id="@+id/orientation_spinner"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" />
+				<CheckBox
+					android:id="@+id/checkbox_meta"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/checkbox_meta"
+					android:onClick="checkbox_clicked" />
+				<CheckBox
+					android:id="@+id/checkbox_regions"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/checkbox_regions"
+					android:onClick="checkbox_clicked" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text=""
+					android:id="@+id/rangeseekbar_text" />
+			</LinearLayout>
+		</ScrollView>
+	</FrameLayout>
 	<ListView
-	    android:id="@+id/drawerList"
-	    android:entries="@array/menu"
+		android:id="@+id/drawerList"
+		android:entries="@array/menu"
 		android:divider="@null"
-	    android:layout_width="@dimen/drawer_left_width"
-	    android:layout_height="match_parent"
-	    android:layout_gravity="left" >
-	</ListView>
-    
+		android:layout_width="@dimen/drawer_left_width"
+		android:layout_height="match_parent"
+		android:layout_gravity="left"></ListView>
 </android.support.v4.widget.DrawerLayout>

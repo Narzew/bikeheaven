@@ -1,252 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawerLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-    <FrameLayout
-        android:id="@+id/mainContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        
-        <ScrollView>
-        <LinearLayout
+	android:id="@+id/drawerLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<FrameLayout
+		android:id="@+id/mainContent"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<ScrollView
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:orientation="vertical"
-			 >
-			 
-	   <TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:text="@string/app_version"
-			android:textSize="25dp" />
-			
-		 <TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:text="Wersja aplikacji: 1.10\nBaza podjazdów: 18.05.15\n" />
-		
-	   <TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:text="@string/app_authors"
-			android:textSize="25dp" />
-	
-	  <TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:text="Aplikacja stworzona przez Nikodema Solarza\nBaza podjazdów pochodzi ze strony altimetr.pl"
-			android:id="@+id/app_author" />
-			
-	<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:id="@+id/altimetr_db"
-		android:onClick="altimetr_clicked"
-		android:src="@drawable/altimetr" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/used_resources"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp" />
-		
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Ikonki pochodzą ze stron:\nicons-land.com\nthenounproject.com\nIkonki zostały przerobione na potrzeby aplikacji\nRangeSeekBar © Stephan Tittel and Yahoo Inc."
-		android:id="@+id/resources_info" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/info_points"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp" />
-			
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Punkty są wyliczane na podstawie nachyleń na 100m/200m, każde % nachylenia jest podnoszone do potęgi, następnie dzielone przez ilość odcinków na kilometrze. Na podstawie punktów podjazd jest przypisywany do odpowiedniej kategorii."
-		android:id="@+id/points_info" />
-		
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/info_categories"
-			android:layout_gravity="center_horizontal"
-			android:textSize="25dp" />
-		
-	<TableLayout
-		android:orientation="vertical"
-	>
-	
-	<TableRow>
-	
-		<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/cat7" />
-		
-		<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Kategoria 7 (0-14 pkt)"
-		android:textSize="20dp" />
-	
-	</TableRow>
-	
-	<TableRow>
-	
-		<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/cat6" />
-		
-		<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Kategoria 6 (15-29 pkt)"
-		android:textSize="20dp" />
-	
-	</TableRow>
-	
-	<TableRow>
-	
-		<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/cat5" />
-		
-		<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Kategoria 5 (30-59 pkt)"
-		android:textSize="20dp" />
-	
-	</TableRow>
-	
-	<TableRow>
-	
-		<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/cat4" />
-		
-		<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Kategoria 4 (60-99 pkt)"
-		android:textSize="20dp" />
-	
-	</TableRow>
-	
-	<TableRow>
-	
-		<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/cat3" />
-		
-		<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Kategoria 3 (100-159 pkt)"
-		android:textSize="20dp" />
-	
-	</TableRow>
-	
-	<TableRow>
-	
-		<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/cat2" />
-		
-		<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Kategoria 2 (160-259 pkt)"
-		android:textSize="20dp" />
-	
-	</TableRow>
-	
-	<TableRow>
-	
-		<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/cat1" />
-		
-		<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Kategoria 1 (260-399 pkt)"
-		android:textSize="20dp" />
-	
-	</TableRow>
-	
-	<TableRow>
-	
-		<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/cat1p" />
-		
-		<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Kategoria 1+ (400-699 pkt)"
-		android:textSize="20dp" />
-	
-	</TableRow>
-	
-		<TableRow>
-	
-	<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/cathc" />
-		
-		<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="Kategoria HC (700+ pkt)"
-		android:textSize="20dp" />
-	
-	</TableRow>
-	
-	</TableLayout>
-
-	</LinearLayout>
-	</ScrollView>
-    </FrameLayout>
-    
+			android:orientation="vertical">
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:orientation="vertical">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/app_version"
+					android:textSize="25dp" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="Wersja aplikacji: 1.10\nBaza podjazdów: 18.05.15\n" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/app_authors"
+					android:textSize="25dp" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="Aplikacja stworzona przez Nikodema Solarza\nBaza podjazdów pochodzi ze strony altimetr.pl"
+					android:id="@+id/app_author" />
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:id="@+id/altimetr_db"
+					android:onClick="altimetr_clicked"
+					android:src="@drawable/altimetr" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/used_resources"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="Ikonki pochodzą ze stron:\nicons-land.com\nthenounproject.com\nIkonki zostały przerobione na potrzeby aplikacji\nRangeSeekBar © Stephan Tittel and Yahoo Inc."
+					android:id="@+id/resources_info" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/info_points"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="Punkty są wyliczane na podstawie nachyleń na 100m/200m, każde % nachylenia jest podnoszone do potęgi, następnie dzielone przez ilość odcinków na kilometrze. Na podstawie punktów podjazd jest przypisywany do odpowiedniej kategorii."
+					android:id="@+id/points_info" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/info_categories"
+					android:layout_gravity="center_horizontal"
+					android:textSize="25dp" />
+				<TableLayout
+					android:orientation="vertical"
+					android:layout_height="match_parent"
+					android:layout_width="match_parent">
+					<TableRow>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/cat7" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:text="Kategoria 7 (0-14 pkt)"
+							android:textSize="20dp" />
+					</TableRow>
+					<TableRow>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/cat6" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:text="Kategoria 6 (15-29 pkt)"
+							android:textSize="20dp" />
+					</TableRow>
+					<TableRow>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/cat5" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:text="Kategoria 5 (30-59 pkt)"
+							android:textSize="20dp" />
+					</TableRow>
+					<TableRow>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/cat4" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:text="Kategoria 4 (60-99 pkt)"
+							android:textSize="20dp" />
+					</TableRow>
+					<TableRow>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/cat3" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:text="Kategoria 3 (100-159 pkt)"
+							android:textSize="20dp" />
+					</TableRow>
+					<TableRow>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/cat2" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:text="Kategoria 2 (160-259 pkt)"
+							android:textSize="20dp" />
+					</TableRow>
+					<TableRow>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/cat1" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:text="Kategoria 1 (260-399 pkt)"
+							android:textSize="20dp" />
+					</TableRow>
+					<TableRow>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/cat1p" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:text="Kategoria 1+ (400-699 pkt)"
+							android:textSize="20dp" />
+					</TableRow>
+					<TableRow>
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/cathc" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center_horizontal"
+							android:text="Kategoria HC (700+ pkt)"
+							android:textSize="20dp" />
+					</TableRow>
+				</TableLayout>
+			</LinearLayout>
+		</ScrollView>
+	</FrameLayout>
 	<ListView
-	    android:id="@+id/drawerList"
-	    android:entries="@array/menu"
+		android:id="@+id/drawerList"
+		android:entries="@array/menu"
 		android:divider="@null"
-	    android:layout_width="@dimen/drawer_left_width"
-	    android:layout_height="match_parent"
-	    android:layout_gravity="left" >
-	</ListView>
-    
+		android:layout_width="@dimen/drawer_left_width"
+		android:layout_height="match_parent"
+		android:layout_gravity="left"></ListView>
 </android.support.v4.widget.DrawerLayout>
