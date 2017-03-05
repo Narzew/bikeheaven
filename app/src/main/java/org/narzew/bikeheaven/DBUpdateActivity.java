@@ -45,6 +45,8 @@ public class DBUpdateActivity extends ActionBarActivity implements OnItemClickLi
     private ListView listView; // For Navigation Drawer
     private String[] menuitems;
     Context context = this;
+    APIHelper apiHelper=new APIHelper(context);
+    DBHelper dbhelper = new DBHelper(context);
 
     /** Called when the activity is first created. */
     @Override
@@ -202,19 +204,40 @@ public class DBUpdateActivity extends ActionBarActivity implements OnItemClickLi
 
     public class DBUpdateTask extends AsyncTask<Integer,String,String> {
         String result;
+        Integer db_scheme_version;
+        Integer local_db_version; // Version of local database
         int[] climb_id;
         Double[] points, start_x, start_y;
         String[] name, slope;
+        String newscheme = "";
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            // Get SharedPreferences data about local_db_version
+            SharedPreferences sharedpreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            local_db_version = sharedpreferences.getInt("db_version", 0);
+        }
 
         @Override
         protected String doInBackground(Integer... params) {
-            APIHelper apiHelper=new APIHelper(context);
             // Check current DB version on server
+            db_scheme_version = Integer.parseInt(apiHelper.get_db_scheme_version());
+            Log.d(Config.PREFS_NAME, "DB Scheme version (from server): "+db_scheme_version);
+            Log.d(Config.PREFS_NAME, "DB Scheme versoin (local): s"+local_db_version);
             // Compare it to local version
+            if(db_scheme_version == local_db_version){
+                // Version is OK, just download some test data
+                result=apiHelper.get_test_climbs(30);
+                parse_climb_json(result);
+            } else {
+                // Change database scheme
+                newscheme = apiHelper.get_local_database_sql();
+                dbhelper.update_database_scheme(newscheme,db_scheme_version);
+            }
             // If version is different then delete whole database and download again;
             // DEBUG: Download test climbs
-            result=apiHelper.get_test_climbs(30);
-            parse_climb_json(result);
+
             return null;
         }
 
@@ -223,15 +246,25 @@ public class DBUpdateActivity extends ActionBarActivity implements OnItemClickLi
             super.onPostExecute(i);
         }
 
-		/*
-		Integer climb_id;
-		Double points;
-		LatLng coords;
-		String name, slope;
-		*/
+        /**
+         * Parse climb JSON from online database and add data to local database
+         *
+         * * Completed: Parsing JSON
+         * * Planned: Addeing to database
+         * Note: This parse JSON for climb (Table: climbs) without climb_points, climb_elevations and climb_curves.
+         * @param jsonstr JSON data
+         */
 
+        // Warning: Adding to database not completed yet!
         public void parse_climb_json(String jsonstr){
 
+            /*
+            Fields:
+	        Integer climb_id
+		    Double points;
+		    LatLng coords;
+		    String name, slope;
+		    */
             Integer jsonlength;
             if (jsonstr != null){
                 try {

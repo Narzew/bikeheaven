@@ -67,6 +67,7 @@ public class DBHelper {
 		return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READONLY);
 	}
 
+	// Deprecated, shouldn't be used anymore.
 	private void copyDatabase(){
 		Log.d(Config.LOG_KEY, "Prepare for database copying");
 		String path = "/data/data/org.narzew.bikeheaven/databases/bikeheaven.db";
@@ -120,6 +121,12 @@ public class DBHelper {
 			e.printStackTrace();
 		}
 		return text;
+	}
+
+	// Update database scheme (not completed)
+	public void update_database_scheme(String newscheme, Integer version){
+		Log.d(Config.LOG_KEY, "Debug: Updating database scheme to version "+version);
+		// Method not complete
 	}
 
 	public Cursor getAllClimbs(){
