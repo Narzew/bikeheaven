@@ -1,8 +1,11 @@
 require 'json'
 require 'find'
 require 'polylines'
+dirs = ["climb_directions","climb_directions/json", "climb_directions/coords", "climb_directions/txt"]
+dirs.each{|x| Dir.mkdir(x) unless Dir.exist?(x) }
 
 $global_sql = "";
+$global_ary = "";
 
 def distance loc1, loc2
   rad_per_deg = Math::PI/180  # PI / 180
@@ -53,11 +56,14 @@ def calculate_waypoints_for_json(file)
 end
 
 def generate_sql(pointsarray,climb_id)
+	$global_ary = ""
 	s = "insert into climb_curves (id,nr,x,y,d,e) values\n"
 	pointsarray.each{|x|
 		s << "(#{climb_id},#{x[3]},#{x[0]},#{x[1]},#{x[2]},0),\n"
+		$global_ary << "#{x[0]} #{x[1]} #{x[2]}\n"
 	}
 	s[-2] = ";"
+	File.open("climb_directions/coords/climb#{climb_id}.txt","wb"){|w| w.write($global_ary) }
 	print "Climb #{climb_id} parsed.\n"
 	return s
 end
