@@ -53,6 +53,7 @@ $coords.each{|x|
 }
 s = ""
 $new_coords.each{|x|
-	s << "#{x[0]} #{x[1]} #{x[2]}\n" unless x == nil
+	s << "#{x[0]} #{x[1]}\n" unless x == nil
+	#s << "#{x[0]} #{x[1]} #{x[2]}\n" unless x == nil
 }
 File.open($new_filename,'wb'){|w| w.write(s) }
