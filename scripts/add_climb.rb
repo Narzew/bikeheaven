@@ -112,7 +112,7 @@ def split_by_distance(coords, distance=100)
 	count = 0
 	old_ary = coords[0]
 	# Add first coordinate
-	new_coords << coords[0]
+	new_coords << coords[0][0..2]
 	coords.each{|x|
 		if x[2] > act_nr # If actual distance is bigger than specified distance..
 			# Parse variable
@@ -130,7 +130,7 @@ def split_by_distance(coords, distance=100)
 			new_coords << [average_x, average_y, act_nr]
 			# Add last point and break the loop
 			if act_nr > max_count
-				new_coords[-1] = coords[-1]
+				new_coords[-1] = coords[-1][0..2]
 			end
 			old_ary = x
 			old_dist = x[2]
@@ -144,13 +144,13 @@ end
 
 #** calculate points (every 100m)
 
-def calculate_points(coords)
+def calculate_points_100m(coords)
 	points = 0
 	last_elev = coords[0][3].to_f
 	coords.each{|x|
 		next if x[2] =="0" || x[2] == "0.0"
 		elev_diff = x[3].to_f-last_elev
-		#print "Nachylenie: #{elev_diff}%\n"
+		print "Nachylenie: #{elev_diff}%\n"
 		if elev_diff < 0
 			points -= elev_diff**2
 		else
@@ -173,7 +173,7 @@ def calculate_points_200m(coords)
 		next if count%2==1
 		next if x[2] =="0" || x[2] == "0.0"
 		elev_diff = x[3].to_f-last_elev
-		#print "Nachylenie: #{elev_diff/2}%\n"
+		print "Nachylenie: #{elev_diff/2}%\n"
 		if elev_diff < 0
 			points -= (elev_diff/2)**2
 		else
@@ -182,6 +182,28 @@ def calculate_points_200m(coords)
 		last_elev = x[3].to_f
 	}
 	points = points/5
+	return points
+end
+
+#** calculate points (every 500m)
+def calculate_points_500m(coords)
+	points = 0
+	last_elev = coords[0][3].to_f
+	count = 0
+	coords.each{|x|
+		count += 1
+		next if count%5!=0
+		next if x[2] =="0" || x[2] == "0.0"
+		elev_diff = x[3].to_f-last_elev
+		print "Nachylenie: #{elev_diff/2}%\n"
+		if elev_diff < 0
+			points -= (elev_diff/5)**2
+		else
+			points += (elev_diff/5)**2
+		end
+		last_elev = x[3].to_f
+	}
+	points = points/2
 	return points
 end
 
@@ -238,7 +260,7 @@ def mix_coords(coords1, coords2)
 	return coords
 end
 
-##** cut_coords to get start and end of a climb; delete all points before minimal and after last elevation point
+#** cut_coords to get start and end of a climb; delete all points before minimal and after last elevation point
 #** input coordinates require elevation information!
 
 def cut_coords(coords)
@@ -261,6 +283,21 @@ def cut_coords(coords)
 	}
 	return coords[min_index..max_index]
 end
+
+#** recalculate distance (after cutting coords)
+def recalculate_distance(coords)
+	new_coords = []
+	# Find first distance
+	first_distance = coords[0][2].to_f
+	coords.each{|x|
+		new_distance = x[2].to_f - first_distance
+		new_coords << [x[0],x[1],new_distance,x[3]]
+	}
+	return new_coords
+end
+
+#**remove points every 100m
+# Not ready
 
 #** export coords to file
 
@@ -288,10 +325,18 @@ def import_coords_array_from_file(filename)
 end
 
 #** get elevations from coords
-def get_elevations_from_coords(coords)
+def get_elevations_from_coords(coords, accuracy=3)
 	Dir.chdir($elevations_reader_path)
-	export_coords_array_to_file(coords, "act_coords.txt")
-	system("#{$elevations_reader_path}ElevationsReader.exe act_coords.txt act_result.txt")
+	if accuracy == 1
+		export_coords_array_to_file(coords, "actual_coords.txt")
+		system("#{$elevations_reader_path}ElevationsReader_1arcsec.exe actual_coords.txt act_result.txt")
+	elsif accuracy == 3
+		export_coords_array_to_file(coords, "act_coords.txt")
+		system("#{$elevations_reader_path}ElevationsReader.exe act_coords.txt act_result.txt")
+	else
+		print "Wrong accuracy! (get_elevations_from_coords)\n"
+		exit
+	end
 	result = import_coords_array_from_file("act_result.txt")
 	Dir.chdir($cur_dir)
 	return result
@@ -310,9 +355,13 @@ def add_local_climb(id)
 		coords_with_elevations = get_elevations_from_coords(coords_with_distance)
 		# Cut coords so only climb lefts
 		cutted_coords = cut_coords(coords_with_elevations)
-		# Split that by 100m (again)
-		export_coords_array_to_file(cutted_coords, "cutted_coords.txt")
-		splitted_coords = split_by_distance(cutted_coords) # Gives error..
+		# Recalculate distance & split that by 100m (again)
+		# Recalculate distance
+		cutted_coords = recalculate_distance(cutted_coords)
+		# Split by 100m
+		splitted_coords = split_by_distance(cutted_coords)
+		# Recalculate elevations
+		splitted_coords = get_elevations_from_coords(splitted_coords)
 		# Get start coordinates
 		start_x = splitted_coords[0][0]
 		start_y = splitted_coords[0][1]
@@ -326,8 +375,10 @@ def add_local_climb(id)
 		elev_diff = calculate_elevdiff(splitted_coords)
 		total_elev_diff = calculate_total_elevdiff(splitted_coords)
 		# Calculate ranking points
-		points = calculate_points(splitted_coords)
-		print "Elev_diff: #{elev_diff}\nTotal elev_diff: #{total_elev_diff}\nPoints: #{points}\n"
+		points = calculate_points_100m(splitted_coords)
+		points_200m = calculate_points_200m(splitted_coords)
+		points_500m = calculate_points_500m(splitted_coords)
+		print "Elev_diff: #{elev_diff}\nTotal elev_diff: #{total_elev_diff}\nPoints: #{points}\nPoints (200m): #{points_200m}\nPoints (500m): #{points_500m}\n"
 		# Not ready yet; Continue here
 	else
 		print "Failed to load JSON file: #{base_filename}\nTry updating database!\n"
