@@ -292,7 +292,7 @@ def get_elevations_from_coords(coords)
 	result = import_coords_array_from_file("act_result.txt")
 	Dir.chdir($cur_dir)
 	return result
-end 
+end
 
 #** save global SQL (deprecated)
 

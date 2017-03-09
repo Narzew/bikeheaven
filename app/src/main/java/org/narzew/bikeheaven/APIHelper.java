@@ -743,6 +743,69 @@ public class APIHelper {
     }
 
     /**
+     * Search climb by name
+     *
+     * @param name Climb name
+     * @return Matched climbs information without points and slopes) in 3 parts of JSON format, separated by ^climb_split^.
+     */
+
+    public String search_by_name(String name) {
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("HttpConnect", httpConnect);
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH + "/climbs/search_by_name.php");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(1);
+                    params.add(new BasicNameValuePair("name", name + ""));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
      * Get climbs near you
      *
      * @param lat Your latitude
