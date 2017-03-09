@@ -226,8 +226,9 @@ def export_coords_array(coords)
 	return s
 end
 
-# [-- NOT READY --]
-##** mix_spllited_coords = []
+##** mix_spllited_coords
+#** Mix two coordinate sets and sort it by distance
+
 def mix_coords(coords1, coords2)
 	coords = coords1+coords2
 	coords = coords.sort_by {|x| x[2].to_f }
@@ -235,6 +236,28 @@ def mix_coords(coords1, coords2)
 end
 
 ##** cut_coords to get start and end of a climb; delete all points before minimal and after last elevation point
+#** input coordinates require elevation information!
+
+def cut_coords(coords)
+	# Find minimal elevation
+	act_min = coords[0][3]
+	act_max = coords[0][3]
+	act_index = -1
+	min_index = 0
+	max_index = 0
+	coords.each{|x|
+		act_index += 1
+		if act_min > x[3]
+			act_min = x[3]
+			min_index = act_index
+		end
+		if act_max < x[3]
+			act_max = x[3]
+			max_index = act_index
+		end
+	}
+	return coords[min_index..max_index]
+end
 
 #** export coords to file
 
@@ -281,12 +304,12 @@ end
 begin
 	Find.find('climb_directions/json').each{|x|
 		next if File.directory?(x) || x.split(".")[-1] != "json"
-		a = calculate_waypoints_for_json(x)
-		b = split_by_distance(a)
-		c = mix_coords(a,b)
-		print c
-		exit
-		print get_elevations_from_coords(a)
+		#a = calculate_waypoints_for_json(x)
+		#b = split_by_distance(a)
+		#c = mix_coords(a,b)
+		#d = get_elevations_from_coords(a)
+		d = import_coords_array_from_file("test_cut.txt")
+		print cut_coords(d)
 		exit
 	}
 	#save_global_sql
