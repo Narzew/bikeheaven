@@ -16,9 +16,11 @@ $global_sql = "";
 $global_ary = "";
 $elevations_reader_path = "D:/Projekty/SRTM/"
 
+#** Calculate distance between two coordinates
+
 def distance loc1, loc2
   rad_per_deg = Math::PI/180  # PI / 180
-  rkm = 6371                  # Earth radius in kilometers
+  rkm = 6372.8                  # Earth radius in kilometers
   rm = rkm * 1000             # Radius in meters
   dlat_rad = (loc2[0]-loc1[0]) * rad_per_deg  # Delta, converted to rad
   dlon_rad = (loc2[1]-loc1[1]) * rad_per_deg
@@ -48,13 +50,13 @@ def calculate_waypoints_for_json(file)
 		if old_x == 0.0 || old_y == 0.0
 			old_x = x[0]
 			old_y = x[1]
-			points_with_distance << [x[0],x[1],totaldistance,count]
+			points_with_distance << [x[0],x[1],totaldistance]
 			count+=1
 			next
 		else
 			a = distance [old_x,old_y],[x[0],x[1]]
 			totaldistance += a
-			points_with_distance << [x[0],x[1],totaldistance,count] 
+			points_with_distance << [x[0],x[1],totaldistance] 
 			old_x = x[0]
 			old_y = x[1]
 			count += 1
@@ -135,6 +137,77 @@ def split_by_distance(coords, distance=100)
 	return new_coords
 end
 
+#** calculate points (every 100m)
+
+def calculate_points(coords)
+	points = 0
+	last_elev = coords[0][3].to_f
+	coords.each{|x|
+		next if x[2] =="0" || x[2] == "0.0"
+		elev_diff = x[3].to_f-last_elev
+		#print "Nachylenie: #{elev_diff}%\n"
+		if elev_diff < 0
+			points -= elev_diff**2
+		else
+			points += elev_diff**2
+		end
+		last_elev = x[3].to_f
+	}
+	points = points/10
+	return points
+end
+
+#** calculate points (every 200m)
+
+def calculate_points_200m(coords)
+	points = 0
+	last_elev = coords[0][3].to_f
+	count = 0
+	coords.each{|x|
+		count += 1
+		next if count%2==1
+		next if x[2] =="0" || x[2] == "0.0"
+		elev_diff = x[3].to_f-last_elev
+		#print "Nachylenie: #{elev_diff/2}%\n"
+		if elev_diff < 0
+			points -= (elev_diff/2)**2
+		else
+			points += (elev_diff/2)**2
+		end
+		last_elev = x[3].to_f
+	}
+	points = points/5
+	return points
+end
+
+#** calculate elevation difference (m)
+
+def calculate_elevdiff(coords)
+	first_elev = points[0][3].to_f
+	last_elev = points[-1][3].to_f
+	return last_elev-first_elev
+end
+
+#** calculate total elevation difference (m)
+
+def calculate_total_elevdiff(coords)
+	total = 0
+	last_elev = coords[0][3].to_f
+	count = 0
+	coords.each{|x|
+		count += 1
+		next if count == 1
+		elev_diff = x[3].to_f-last_elev
+		if elev_diff < 0
+			total_elev -= elev_diff # - - = +
+		else
+			total_elev += elev_diff
+		end
+		last_elev = x[3].to_f
+	}
+	return total
+end
+
 #** export coords to string
 #** coords => variable containing coordinates
 def export_coords_array(coords)
@@ -151,6 +224,16 @@ def export_coords_array(coords)
 	return s
 end
 
+# [-- NOT READY --]
+##** mix_spllited_coords = []
+def mix_coords(coords1, coords2)
+	coords = coords1+coords2
+	coords = coords.sort_by {|x| x[3].to_f }
+	return coords
+end
+
+##** cut_coords to get start and end of a climb; delete all points before minimal and after last elevation point
+
 #** export coords to file
 
 def export_coords_array_to_file(coords,filename)
@@ -164,8 +247,10 @@ def import_coords_array(str)
 		next if x.size < 3
 		next unless x.include?("\x20")
 		a = x.split("\x20") # Split by space
+		a.map!{|x| x.to_f }
 		coords << a
 	}
+	return coords
 end
 
 #** import coords array from file
@@ -173,6 +258,13 @@ def import_coords_array_from_file(filename)
 	data = File.read(filename)
 	return import_coords_array(data)
 end
+
+#** get elevations from coords
+def get_elevations_from_coords(coords)
+	export_coords_array_to_file(coords, "#{$elevations_reader_path}act_coords.txt")
+	system("#{$elevations_reader_path}ElevationsReader.exe act_coords.txt act_result.txt")
+	return import_coords_array_from_file("#{$elevations_reader_path}act_result.txt")
+end 
 
 #** save global SQL (deprecated)
 
@@ -184,7 +276,11 @@ end
 begin
 	Find.find('climb_directions/json').each{|x|
 		next if File.directory?(x) || x.split(".")[-1] != "json"
-		generate_sql_for_file(x)
+		a = import_coords_array_from_file("coords_array.txt")
+		print get_elevations_from_coords(a)
+		#export_coords_array_to_file(a, "coords_array.txt")
+		#print a
+		exit
 	}
-	save_global_sql
+	#save_global_sql
 end

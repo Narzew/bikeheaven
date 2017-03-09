@@ -24,8 +24,8 @@ end
 act_nr = 0
 count = 0
 old_ary = $coords[0]
-# Add first coordinate (deprecated)
-#$new_coords << $coords[0]
+# Add first coordinate
+$new_coords << $coords[0]
 $coords.each{|x|
 	if x[2] > act_nr
 		# Parse variable
@@ -39,10 +39,8 @@ $coords.each{|x|
 		act_nr += 100
 		$new_coords << [average_x,average_y,act_nr]
 		if act_nr > max_count
-			# Add last point (deprecated)
-			# $new_coords[-1] = $coords[-1]
-			# Remove last point (actual)
-			$new_coords[-1] = nil
+			# Add last point
+			$new_coords[-1] = $coords[-1]
 		end
 		old_ary = x
 		old_dist = x[2]
@@ -53,7 +51,7 @@ $coords.each{|x|
 }
 s = ""
 $new_coords.each{|x|
-	s << "#{x[0]} #{x[1]}\n" unless x == nil
+	s << "#{x[0]} #{x[1]} #{x[2]}\n" unless x == nil
 	#s << "#{x[0]} #{x[1]} #{x[2]}\n" unless x == nil
 }
 File.open($new_filename,'wb'){|w| w.write(s) }
