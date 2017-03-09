@@ -104,6 +104,7 @@ end
 
 def split_by_distance(coords, distance=100)
 	new_coords = []
+	max_count = coords[-1][2]
 	if max_count%100 == 0
 		max_count = max_count+0.01
 	end
@@ -229,7 +230,7 @@ end
 ##** mix_spllited_coords = []
 def mix_coords(coords1, coords2)
 	coords = coords1+coords2
-	coords = coords.sort_by {|x| x[3].to_f }
+	coords = coords.sort_by {|x| x[2].to_f }
 	return coords
 end
 
@@ -280,7 +281,11 @@ end
 begin
 	Find.find('climb_directions/json').each{|x|
 		next if File.directory?(x) || x.split(".")[-1] != "json"
-		a = import_coords_array_from_file("coords_array.txt")
+		a = calculate_waypoints_for_json(x)
+		b = split_by_distance(a)
+		c = mix_coords(a,b)
+		print c
+		exit
 		print get_elevations_from_coords(a)
 		exit
 	}
