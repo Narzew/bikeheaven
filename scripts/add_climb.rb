@@ -15,6 +15,7 @@ dirs.each{|x| Dir.mkdir(x) unless Dir.exist?(x) }
 $global_sql = "";
 $global_ary = "";
 $elevations_reader_path = "D:/Projekty/SRTM/"
+$cur_dir = File.expand_path(File.dirname(__FILE__))
 
 #** Calculate distance between two coordinates
 
@@ -261,9 +262,12 @@ end
 
 #** get elevations from coords
 def get_elevations_from_coords(coords)
-	export_coords_array_to_file(coords, "#{$elevations_reader_path}act_coords.txt")
+	Dir.chdir($elevations_reader_path)
+	export_coords_array_to_file(coords, "act_coords.txt")
 	system("#{$elevations_reader_path}ElevationsReader.exe act_coords.txt act_result.txt")
-	return import_coords_array_from_file("#{$elevations_reader_path}act_result.txt")
+	result = import_coords_array_from_file("act_result.txt")
+	Dir.chdir($cur_dir)
+	return result
 end 
 
 #** save global SQL (deprecated)
@@ -278,8 +282,6 @@ begin
 		next if File.directory?(x) || x.split(".")[-1] != "json"
 		a = import_coords_array_from_file("coords_array.txt")
 		print get_elevations_from_coords(a)
-		#export_coords_array_to_file(a, "coords_array.txt")
-		#print a
 		exit
 	}
 	#save_global_sql
