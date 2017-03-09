@@ -120,7 +120,10 @@ def split_by_distance(coords, distance=100)
 			p2 = x
 			n_left = 1/(p2[2]-p1[2])
 			n_right = 1-n_left
-			print "Warning! Invalid n coefficient (split_by_distance)!\nResult could be invalid.\n" if n_left > 1 or n_right > 1
+			if n_left>1 or n_right>1
+				print "Warning! Invalid n coefficient (n_left=#{n_left}, n_right=#{n_right}) (split_by_distance)!\nResult could be invalid.\n" if n_left > 1 or n_right > 1
+				exit
+			end
 			average_x = (p1[0]*n_left+p2[0]*n_right)
 			average_y = (p1[1]*n_left+p2[1]*n_right)
 			act_nr += distance
@@ -185,8 +188,8 @@ end
 #** calculate elevation difference (m)
 
 def calculate_elevdiff(coords)
-	first_elev = points[0][3].to_f
-	last_elev = points[-1][3].to_f
+	first_elev = coords[0][3].to_f
+	last_elev = coords[-1][3].to_f
 	return last_elev-first_elev
 end
 
@@ -201,9 +204,9 @@ def calculate_total_elevdiff(coords)
 		next if count == 1
 		elev_diff = x[3].to_f-last_elev
 		if elev_diff < 0
-			total_elev -= elev_diff # - - = +
+			total -= elev_diff # - - = +
 		else
-			total_elev += elev_diff
+			total += elev_diff
 		end
 		last_elev = x[3].to_f
 	}
@@ -294,6 +297,42 @@ def get_elevations_from_coords(coords)
 	return result
 end
 
+#** add local climb
+#** requires climb ID
+def add_local_climb(id)
+	base_filename = "climb_directions/json/climb#{id}.json"
+	if File.exist?(base_filename)
+		# Get base coordinates
+		base_coords = calculate_waypoints_for_json(base_filename)
+		# Get coordinates + coordinates every 100m
+		coords_with_distance = mix_coords(base_coords, split_by_distance(base_coords))
+		# Get elevations for all coordinates
+		coords_with_elevations = get_elevations_from_coords(coords_with_distance)
+		# Cut coords so only climb lefts
+		cutted_coords = cut_coords(coords_with_elevations)
+		# Split that by 100m (again)
+		export_coords_array_to_file(cutted_coords, "cutted_coords.txt")
+		splitted_coords = split_by_distance(cutted_coords) # Gives error..
+		# Get start coordinates
+		start_x = splitted_coords[0][0]
+		start_y = splitted_coords[0][1]
+		# Get end coordinates
+		finish_x = splitted_coords[-1][0]
+		finish_y = splitted_coords[-1][1]
+		# Get start and finish elevation
+		start_elevation = splitted_coords[0][3]
+		finish_elevation = splitted_coords[-1][3]
+		# Calculate elevation difference and total elevation difference
+		elev_diff = calculate_elevdiff(splitted_coords)
+		total_elev_diff = calculate_total_elevdiff(splitted_coords)
+		# Calculate ranking points
+		points = calculate_points(splitted_coords)
+		print "Elev_diff: #{elev_diff}\nTotal elev_diff: #{total_elev_diff}\nPoints: #{points}\n"
+		# Not ready yet; Continue here
+	else
+		print "Failed to load JSON file: #{base_filename}\nTry updating database!\n"
+	end
+end
 #** save global SQL (deprecated)
 
 def save_global_sql
@@ -304,12 +343,7 @@ end
 begin
 	Find.find('climb_directions/json').each{|x|
 		next if File.directory?(x) || x.split(".")[-1] != "json"
-		#a = calculate_waypoints_for_json(x)
-		#b = split_by_distance(a)
-		#c = mix_coords(a,b)
-		#d = get_elevations_from_coords(a)
-		d = import_coords_array_from_file("test_cut.txt")
-		print cut_coords(d)
+		add_local_climb(1)
 		exit
 	}
 	#save_global_sql

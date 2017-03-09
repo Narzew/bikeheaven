@@ -40,6 +40,13 @@
                     android:layout_height="wrap_content"
                     android:text="Update database"
                     android:onClick="update_database_clicked" />
+                <EditText
+                    android:id="@+id/edittext_climb_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:inputType="number"
+                    />
                 <Button
                     android:id="@+id/button_sample_climb_info"
                     android:layout_width="wrap_content"
