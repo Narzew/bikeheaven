@@ -15,7 +15,7 @@ data = data.gsub("bicycling", $go_mode)
 data = data.split("^api^")[1]
 File.open("climb_directions/txt/request#{nr}.txt","wb"){|w| w.write(data) }
 print "\nnarzew.org: Request #{nr} complete.\n"
-
-system("curl -o \"climb_directions/json/climb#{nr}.json\" \"#{data}\"")
+#system("curl -o \"climb_directions/json/climb#{nr}.json\" \"#{data}\"")
+system("curl -o \"climb_directions/json/climb#{nr}.json\" \"#{data}&key=secret\"") # My API Key
 #open(ata){|gapi| File.open("climb_directions/json/climb#{nr}.json","wb"){|w| w.write(gapi.read) }}
 print "\ngoogle api: Request #{nr} complete.\n"

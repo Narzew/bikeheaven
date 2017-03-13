@@ -29,6 +29,8 @@ gradle
 *.tgz
 *.json
 scripts/climb_directions
+scripts/json
+scripts/old
 .DS_Store
 local.properties
 /app/build
