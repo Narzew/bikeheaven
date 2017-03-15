@@ -28,6 +28,7 @@ gradle
 *.tar.gz
 *.tgz
 *.json
+*.ncp
 scripts/climb_directions
 scripts/json
 scripts/old

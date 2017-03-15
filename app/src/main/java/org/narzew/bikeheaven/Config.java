@@ -26,7 +26,10 @@ public class Config {
     public static final int DESCRIPTION_MAX_CHARS = 50;
     public static final String DB_NAME = "bikeheaven.db";
     public static final int DB_VERSION = 1;
-
+    /** Alarm repeat time */
+    public static final int REPEAT_TIME=1000*10;
+    /** Alarm wait time */
+    public static final int ALARM_WAIT_TIME = 20;
 
     public Config(Context context) {
         this.context = context;

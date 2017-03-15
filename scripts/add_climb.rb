@@ -1,8 +1,13 @@
 require 'json'
 require 'find'
+require 'zlib'
 require 'polylines'
 dirs = ["climb_directions","climb_directions/json", "climb_directions/coords", "climb_directions/txt", "climb_directions/fragments_100m", "climb_directions/elevations"]
 dirs.each{|x| Dir.mkdir(x) unless Dir.exist?(x) }
+$elev_data = Marshal.load(Zlib::Inflate.inflate(File.binread("elevations_associated.ncp")))
+$elev_nr = $elev_data.keys
+$act_calc_failed = false
+$bad_climb_ids = []
 
 # Coords Array Structure
 # x_coord,y_coord,distance_from_start,elevation
@@ -19,6 +24,8 @@ $cur_dir = File.expand_path(File.dirname(__FILE__))
 $request_str = ""
 # ID of climbs which have multipart data
 $multipart_ids = [2200,2205,2217,2242,2261,2271,2277,2280,2295,2303,2306,2322,2325,2342,2343,2351,2352,2355,2368,2375,2379,2380,2383,2384,2404,2405,2411,2414,2417,2424,2426,2451,2456,2501,2508,2510,2515,2529,2543,2560,2586,2602,2607,2625,2635,2639,2650,2655,2656,2666,2667,2670,2673,2676,2687,2688,2704,2717,2724,2726,2764,2770,2772,2774,2781,2788,2793,2794,2796,2804,2811,2834,2835,2845,2846,2848,2907,2930,2933,2953,2954,2959,2974,2991,2994,2998,2999,3006,3026,3028,3031,3068,3074,3087,3093,3102,3113,3120,3130,3138,3146,3148,3167,3170,3184,3202,3220,3230,3237,3271,3273,3284,3291,3311,3313,3314,3315,3328,3330,3331,3332,3337,3339,3346,3379,3388,3418,3433,3436,3441,3448,3472,3493,3508,3518,3533,3537,3541,3548,3553,3554,3562,3563,3565,3573,3574,3576,3578,3580,3583,3585,3592,3593,3607,3609,3648,3655,3656,3683,3698,3707,3708,3738,3752,3755,3756,3760,3766,3778,3811,3812,3839,3845,3848,3849,3889,3893,3907,3957,3964,4000,4002,4006,4027,4041,4046,4048,4060,4079,4110,4127,4173,4179,4181,4196,4226,4257,4320,4337,4353,4355,4370,4377,4399,4402,4438,4443,4463,4472,4485,4487,4489,4512,4599,4601,4602,4610,4611,4616,4631,4645,4687,4710,4712,4716,4721,4726,4731,4734,4808,4814,4816,4829,4841,4843,4844,4845,4859,4870,4871,4872,4873,4874,4875,4876,4877,4880,4892,4920,4924,4965,4966,4982,4988,5009,5038,5052,5066,5068,5086,5098,5099,5100,5133,5156,5173,5189,5190,5205,5214,5221,5226,5228,5327,5361,5369,5380,5381,5384,5406,5426,5430,5432,5450,5463,5473,5487,5490,5491,5495,5497,5498,5515,5520,5535,5563,5574,5596,5600,5601,5608,5629,5635,5641,5653,5663,5670,5674,5679,5689,5690,5694,5720,5739,5755,5758,5765,5791,5810,5812,5816,5820,5834,5841,5843,5847,5849,5851,5853,5854,5856,5857,5858,5861,5862,5865,5867,5869,5873,5881,5883,5907,5925,5932,5980,5995,6001,6015,6019,6052,6070,6084,6091,6107,6114,6161,6173,6178,6183,6192,6206,6252,6258,6270,6281,6282,6289,6335,6336,6347,6395,6400,6403,6418,6425,6485,6488,6520,6523,6545,6563,6564,6568,6593,6605,6610,6615,6618,6619,6620,6624,6625,6626,6627,6638,6649,6662,6685,6687,6744,6754,6761,6765,6776,6781,6792,6837,6851,6866,6867,6868,6885,6892,6942,6945,6954,6958,6960,6968,6974,7001,7014,7026,7038,7052,7065,7070,7077,7078,7082,7084,7087,7089,7090,7093,7098,7110,7111,7112,7116,7121,7122,7133,7144,7150,7158,7159,7160,7161,7168,7169,7170,7174,7175,7181,7184,7187,7188,7190,7193,7194,7261,7273,7277,7278,7280,7286,7287,7291,7298,7302,7339,7340,7341,7342,7351,7356,7367,7378,7394,7400,7408,7409,7411,7417,7422,7423,7436,7442,7465,7469,7482,7483,7493]
+# Climbs that make trouble when parsing
+$bad_climb_ids = [2200,2205, 2217, 2242, 2261, 2271, 2277, 2280, 2295, 2303, 2306, 2322, 2325, 2342, 2343, 2351, 2352, 2355, 2358, 2368, 2375, 2379, 2380, 2383, 2384, 2404, 2405, 2411, 2414, 2417, 2424, 2426, 2451, 2456, 2463, 2486, 2493, 2501, 2508, 2510, 2515, 2529, 2543, 2546, 2560, 2586, 2602, 2607, 2625, 2635, 2639, 2650, 2655, 2656, 2662, 2666, 2667, 2670, 2673, 2676, 2687, 2688, 2704, 2717, 2724, 2726, 2764, 2770, 2772, 2774, 2781, 2788, 2793, 2794, 2796, 2804, 2811, 2834, 2835, 2845, 2846, 2848, 2907, 2930, 2933, 2953, 2954, 2959, 2974, 2991, 2994, 2998, 2999, 3006, 3010, 3026, 3028, 3031, 3068, 3074, 3087, 3093, 3102, 3113, 3120, 3130, 3138, 3146, 3148, 3167, 3170, 3184, 3202, 3220, 3230, 3237, 3238, 3271, 3273, 3277, 3284, 3291, 3311, 3313, 3314, 3315, 3328, 3330, 3331, 3332, 3337, 3339, 3346, 3379, 3388, 3418, 3433, 3436, 3441, 3448, 3472, 3493, 3508, 3518, 3533, 3537, 3541, 3548, 3553, 3554, 3562, 3563, 3565, 3573, 3574, 3576, 3578, 3580, 3583, 3585, 3592, 3593, 3607, 3609, 3648, 3655, 3656, 3683, 3698, 3707, 3708, 3738, 3752, 3755, 3756, 3760, 3766, 3778, 3811, 3812, 3839, 3845, 3848, 3849, 3884, 3889, 3893, 3907, 3957, 3964, 4000, 4002, 4006, 4027, 4041, 4046, 4048, 4060, 4079, 4110, 4127, 4173, 4179, 4181, 4196, 4226, 4257, 4277, 4320, 4337, 4353, 4355, 4370, 4377, 4399, 4402, 4438, 4443, 4463, 4472, 4485, 4487, 4489, 4512, 4599, 4601, 4602, 4610, 4611, 4616, 4631, 4645, 4675, 4687, 4710, 4712, 4716, 4721, 4726, 4731, 4734, 4808, 4814, 4816, 4828, 4829, 4841, 4843, 4844, 4845, 4859, 4870, 4871, 4872, 4873, 4874, 4875, 4876, 4877, 4880, 4892, 4920, 4924, 4965, 4966, 4982, 4988, 5009, 5038, 5052, 5066, 5068, 5086, 5098, 5099, 5100, 5133, 5156, 5173, 5189, 5190, 5205, 5214, 5221, 5226, 5228, 5327, 5361, 5369, 5380, 5381, 5384, 5390, 5406, 5426, 5430, 5432, 5450, 5463, 5473, 5487, 5490, 5491, 5495, 5497, 5498, 5515, 5520, 5535, 5563, 5574, 5596, 5600, 5601, 5608, 5629, 5635, 5641, 5653, 5663, 5670, 5674, 5679, 5689, 5690, 5694, 5720, 5739, 5755, 5758, 5765, 5791, 5810, 5812, 5816, 5820, 5834, 5841, 5843, 5847, 5849, 5851, 5853, 5854, 5856, 5857, 5858, 5861, 5862, 5865, 5867, 5869, 5873, 5881, 5883, 5907, 5925, 5932, 5980, 5995, 6001, 6015, 6019, 6052, 6070, 6084, 6091, 6107, 6112, 6114, 6161, 6173, 6178, 6183, 6192, 6206, 6252, 6258, 6270, 6281, 6282, 6289, 6335, 6336, 6347, 6395, 6400, 6403, 6418, 6425, 6485, 6488, 6520, 6523, 6545, 6563, 6564, 6568, 6593, 6605, 6610, 6615, 6618, 6619, 6620, 6624, 6625, 6626, 6627, 6638, 6649, 6662, 6685, 6687, 6744, 6754, 6761, 6765, 6776, 6781, 6792, 6812, 6837, 6851, 6866, 6867, 6868, 6885, 6892, 6942, 6945, 6954, 6958, 6960, 6968, 6974, 7001, 7014, 7026, 7038, 7052, 7065, 7070, 7077, 7078, 7082, 7084, 7087, 7089, 7090, 7093, 7098, 7110, 7111, 7112, 7116, 7121, 7122, 7133, 7144, 7150, 7158, 7159, 7160, 7161, 7168, 7169, 7170, 7174, 7175, 7181, 7184, 7187, 7188, 7190, 7193, 7194, 7261, 7273, 7277, 7278, 7280, 7286, 7287, 7291, 7298, 7302, 7339, 7340, 7341, 7342, 7351, 7356, 7367, 7378, 7394, 7400, 7408, 7409, 7411, 7417, 7422, 7423, 7436, 7442, 7465, 7467, 7469, 7482, 7483, 7493, 7498, 7499, 7500, 7501, 7502, 7503, 7504, 7505, 7506, 7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514, 7515, 7516, 7517, 7518, 7519, 7520, 7521, 7522, 7523, 7524, 7525, 7526, 7527, 7528, 7529, 7530, 7531, 7532, 7533, 7534, 7535, 7536, 7537, 7538, 7539, 7540, 7541, 7542, 7543, 7544, 7545, 7546]
 
 #** Calculate distance between two coordinates
 
@@ -105,7 +112,7 @@ end
 #** coords => Coordinates array
 #** distance => Distance of every point (default=100m)
 
-def split_by_distance(coords, distance=200)
+def split_by_distance(coords, distance=100)
 	distance_ary = []
 	new_coords = []
 	max_count = coords[-1][2]
@@ -160,7 +167,7 @@ def calculate_points_100m(coords)
 	coords.each{|x|
 		next if x[2] =="0" || x[2] == "0.0"
 		elev_diff = x[3].to_f-last_elev
-		print "Nachylenie: #{elev_diff}%\n"
+		#print "Nachylenie: #{elev_diff}%\n"
 		if elev_diff < 0
 			points -= elev_diff**2
 		else
@@ -177,13 +184,10 @@ end
 def calculate_points_200m(coords)
 	points = 0
 	last_elev = coords[0][3].to_f
-	count = 0
 	coords.each{|x|
-		count += 1
-		next if count%2==1
 		next if x[2] =="0" || x[2] == "0.0"
 		elev_diff = x[3].to_f-last_elev
-		print "Nachylenie: #{elev_diff/2}%\n"
+		#print "Nachylenie: #{elev_diff}%\n"
 		if elev_diff < 0
 			points -= (elev_diff/2)**2
 		else
@@ -191,29 +195,7 @@ def calculate_points_200m(coords)
 		end
 		last_elev = x[3].to_f
 	}
-	points = points/5
-	return points
-end
-
-#** calculate points (every 500m)
-def calculate_points_500m(coords)
-	points = 0
-	last_elev = coords[0][3].to_f
-	count = 0
-	coords.each{|x|
-		count += 1
-		next if count%5!=0
-		next if x[2] =="0" || x[2] == "0.0"
-		elev_diff = x[3].to_f-last_elev
-		print "Nachylenie: #{elev_diff/2}%\n"
-		if elev_diff < 0
-			points -= (elev_diff/5)**2
-		else
-			points += (elev_diff/5)**2
-		end
-		last_elev = x[3].to_f
-	}
-	points = points/2
+	points = points/10
 	return points
 end
 
@@ -334,8 +316,8 @@ def import_coords_array_from_file(filename)
 	return import_coords_array(data)
 end
 
-#** get elevations from coords
-def get_elevations_from_coords(coords, accuracy=3)
+#** get elevations from coords (SRTM data)
+def get_elevations_from_coords_strm(coords, accuracy=3)
 	Dir.chdir($elevations_reader_path)
 	if accuracy == 1
 		export_coords_array_to_file(coords, "actual_coords.txt")
@@ -352,77 +334,45 @@ def get_elevations_from_coords(coords, accuracy=3)
 	return result
 end
 
-#** add local climb (old) # DEPRECATED..
-def add_local_climb_old(id)
-	base_filename = "climb_directions/json/climb#{id}.json"
-	if File.exist?(base_filename)
-		# Get base coordinates
-		base_coords = calculate_waypoints_for_json(base_filename)
-		# Get coordinates + coordinates every 100m
-		coords_with_distance = mix_coords(base_coords, split_by_distance(base_coords))
-		# Get elevations for all coordinates
-		coords_with_elevations = get_elevations_from_coords(coords_with_distance)
-		# Cut coords so only climb lefts
-		cutted_coords = cut_coords(coords_with_elevations)
-		# Recalculate distance & split that by 100m (again)
-		# Recalculate distance
-		cutted_coords = recalculate_distance(cutted_coords)
-		# Split by 100m
-		splitted_coords = split_by_distance(cutted_coords)
-		export_coords_array_to_file(splitted_coords, "cutted_coords.txt")
-		# Get encoded polyline
-		splitted_coordinate_only = []
-		splitted_coords.each{|x|
-			splitted_coordinate_only << [x[0],x[1]]
-		}
-		s = ""
-		splitted_coords.each{|x|
-			s << "#{x[0]},#{x[1]}|"
-		}
-		s[-1] = ""
-		print "Encoded locations: #{s}\n"
-		encoded_polyline = Polylines::Encoder.encode_points(splitted_coordinate_only)
-		File.open("encoded_polyline.txt","wb"){|w| w.write(encoded_polyline) }
-		print "Encoded polyline: #{encoded_polyline}\n"
-		# Recalculate elevations
-		splitted_coords = get_elevations_from_coords(splitted_coords)
-		# Get start coordinates
-		start_x = splitted_coords[0][0]
-		start_y = splitted_coords[0][1]
-		# Get end coordinates
-		finish_x = splitted_coords[-1][0]
-		finish_y = splitted_coords[-1][1]
-		# Get start and finish elevation
-		start_elevation = splitted_coords[0][3]
-		finish_elevation = splitted_coords[-1][3]
-		# Calculate elevation difference and total elevation difference
-		elev_diff = calculate_elevdiff(splitted_coords)
-		total_elev_diff = calculate_total_elevdiff(splitted_coords)
-		# Calculate ranking points
-		points = calculate_points_100m(splitted_coords)
-		points_200m = calculate_points_200m(splitted_coords)
-		points_500m = calculate_points_500m(splitted_coords)
-		print "Elev_diff: #{elev_diff}\nTotal elev_diff: #{total_elev_diff}\nPoints: #{points}\nPoints (200m): #{points_200m}\nPoints (500m): #{points_500m}\n"
-		# Not ready yet; Continue here
-	else
-		print "Failed to load JSON file: #{base_filename}\nTry updating database!\n"
-	end
+#** get elevations from coords (google data)
+def get_elevations_from_coords(coords, climb_id)
+	new_coords = []
+	coords = coords.compact
+	coords.each{|x|
+		next if x[0] == nil || x[1] == nil || x[2] == nil || x == nil
+		lat_lng = "#{x[0].round(8)}_#{x[1].round(8)}"
+		next if lat_lng == nil
+		#print "#{lat_lng}\n"
+		if $elev_data.include?(lat_lng)
+			new_coords << [x[0],x[1],x[2],$elev_data[lat_lng]]
+			#print "Parsed #{lat_lng}\n"
+		else
+			$act_calc_failed = true
+			print "Failed to get elevation for climb ID: #{climb_id}\n"
+			return coords
+		end
+	}
+	return new_coords
 end
 
 #** add local climb
 #** requires climb ID
-def add_local_climb(id)
+def add_local_climb(id,dist=100)
+	$act_calc_failed = false
 	base_filename = "climb_directions/json/climb#{id}.json"
 	if File.exist?(base_filename)
 		# Get base coordinates
-		base_coords = calculate_waypoints_for_json(base_filename)
+		base_coords = calculate_waypoints_for_json(base_filename).compact
 		# Get coordinates + coordinates every 100m
-		coords_with_distance = split_by_distance(base_coords)
-		#coords_with_distance = mix_coords(base_coords, split_by_distance(base_coords))
+		coords_with_distance = split_by_distance(base_coords,dist)
 		# Get elevations for all coordinates
-		coords_with_elevations = get_elevations_from_coords(coords_with_distance)
-		splitted_coords = coords_with_distance
-		export_coords_array_to_file(splitted_coords, "coords_with_elevations.txt")
+		coords_with_elevations = get_elevations_from_coords(coords_with_distance,id)
+		if $act_calc_failed
+			$bad_climb_ids << id.to_i
+			print "Failed to get data for ID: #{id}\n"
+			return
+		end
+		splitted_coords = recalculate_distance(cut_coords(coords_with_elevations)) rescue $act_calc_failed = true && $bad_climb_ids << id.to_i && return
 		# Get encoded polyline
 		splitted_coordinate_only = []
 		coords_with_elevations.each{|x|
@@ -433,29 +383,58 @@ def add_local_climb(id)
 			s << "#{x[0]},#{x[1]}|"
 		}
 		s[-1] = ""
-		print "Encoded locations: #{s}\n"
-		export_coords_array_to_file(splitted_coords, "cutted_coords.txt")
-		encoded_polyline = Polylines::Encoder.encode_points(splitted_coordinate_only)
-		File.open("encoded_polyline.txt","wb"){|w| w.write(encoded_polyline) }
-		print "Encoded polyline: #{encoded_polyline}\n"
+		#print "Encoded locations: #{s}\n"
+		#export_coords_array_to_file(splitted_coords, "cutted_coords.txt")
+		#encoded_polyline = Polylines::Encoder.encode_points(splitted_coordinate_only)
+		#File.open("encoded_polyline.txt","wb"){|w| w.write(encoded_polyline) }
+		#print "Encoded polyline: #{encoded_polyline}\n"
 		# Get start coordinates
-		start_x = splitted_coords[0][0]
-		start_y = splitted_coords[0][1]
+		start_x = splitted_coords[0][0].round(8)
+		start_y = splitted_coords[0][1].round(8)
 		# Get end coordinates
-		finish_x = splitted_coords[-1][0]
-		finish_y = splitted_coords[-1][1]
+		finish_x = splitted_coords[-1][0].round(8)
+		finish_y = splitted_coords[-1][1].round(8)
+		total_distance = (splitted_coords[-1][2].round(1))/1000
 		# Get start and finish elevation
-		start_elevation = splitted_coords[0][3]
-		finish_elevation = splitted_coords[-1][3]
+		start_elevation = splitted_coords[0][3].round(3)
+		finish_elevation = splitted_coords[-1][3].round(3)
 		# Calculate elevation difference and total elevation difference
-		elev_diff = calculate_elevdiff(splitted_coords)
-		total_elev_diff = calculate_total_elevdiff(splitted_coords)
+		elev_diff = calculate_elevdiff(splitted_coords).round(3)
+		total_elev_diff = calculate_total_elevdiff(splitted_coords).round(3)
 		# Calculate ranking points
-		points = calculate_points_100m(splitted_coords)
-		points_200m = calculate_points_200m(splitted_coords)
-		points_500m = calculate_points_500m(splitted_coords)
-		print "Elev_diff: #{elev_diff}\nTotal elev_diff: #{total_elev_diff}\nPoints: #{points}\nPoints (200m): #{points_200m}\nPoints (500m): #{points_500m}\n"
+		if dist == 100
+			points = calculate_points_100m(splitted_coords).round(3)
+		elsif dist == 200
+			points = calculate_points_200m(splitted_coords).round(3)
+		else
+			print "Invalid dist parameter!\n"
+			exit
+		end
+		slope = (elev_diff.to_f/total_distance.to_f)/10
+		slope_str = "#{total_distance.round(1)}km #{slope.round(1)}%" 
+		#points_200m = calculate_points_200m(splitted_coords)
+		#points_500m = calculate_points_500m(splitted_coords)
+		print "Elev_diff: #{elev_diff}\nTotal elev_diff: #{total_elev_diff}\nPoints: #{points}\n"
+		#print "Elev_diff: #{elev_diff}\nTotal elev_diff: #{total_elev_diff}\nPoints: #{points}\nPoints (200m): #{points_200m}\nPoints (500m): #{points_500m}\n"
 		# Not ready yet; Continue here
+		dquery = "delete from climb_points where climb_id = #{id};delete from climb_slopes where climb_id = #{id};\n"
+		query = "insert into climb_points(climb_id, point_nr,point_x,point_y) values\n"
+		query2 = "insert into climb_slopes(climb_id, point_distance, elevation) values\n"
+		query3 = "update climbs set start_x = #{start_x}, start_y = #{start_y}, end_x = #{finish_x}, end_y = #{finish_y}, points = #{points}, ascent = #{elev_diff}, tascent = #{total_elev_diff}, slope = \'#{slope_str}\', status = 2 where id = #{id};\n"
+		count = 0
+		splitted_coords.each{|x|
+			count += 1
+			query << "(#{id}, #{count}, #{x[0].round(8)},#{x[1].round(8)}),\n"
+			query2 << "(#{id}, #{x[2].round(1)}, #{x[3].round(3)}),\n"
+		}
+		query[-2] = ";"
+		query2[-2] = ";"
+		query = dquery+query+query2+query3
+		unless $act_calc_failed
+			$global_sql << query
+		else
+			$bad_climb_ids << id.to_i
+		end
 	else
 		print "Failed to load JSON file: #{base_filename}\nTry updating database!\n"
 	end
@@ -467,7 +446,7 @@ def generate_locations_api_request(id)
 		# Get base coordinates
 		base_coords = calculate_waypoints_for_json(base_filename)
 		# Get coordinates + coordinates every 100m
-		coords_with_distance = split_by_distance(base_coords, 200)
+		coords_with_distance = split_by_distance(base_coords, 100)
 		splitted_coords = coords_with_distance
 		# Get encoded polyline
 		s = ""
@@ -496,6 +475,7 @@ def save_global_sql
 	File.open("climb_directions/database.sql","wb"){|w| w.write($global_sql) }
 end
 
+=begin
 begin
 	# Parse IDs with multipart data
 	$multipart_ids.each{|x|
@@ -504,22 +484,28 @@ begin
 	save_generated_requests
 	#add_local_climb_old(ARGV[0].to_i)
 end
+=end
 
-=begin
 begin
 	Find.find('climb_directions/json').each{|x|
 		next if File.directory?(x) || x.split(".")[-1] != "json"
-		generate_locations_api_request(2200)
-		save_generated_requests
-		exit
-		#id = x.split("/climb")[-1].gsub(".json","")
-		#if id.to_i<2199
-		#	print "Skipping #{id}\n"
-		#else
-		#	generate_locations_api_request(id)
-		#end
+		id = x.split("/climb")[-1].gsub(".json","")
+		# 2199 is an ocean road, it's not climb! [I will fix this later]
+		if id.to_i<=2201
+			print "Skipping #{id}\n"
+		else
+			# Parse only multiparts
+			unless $multipart_ids.include?(id.to_i)
+				print "Skipping single part #{id}\n"
+				next
+			end
+			print "Parsing #{id}\n"
+			add_local_climb(id,200)
+		end
 	}
-	save_generated_requests
-	#save_global_sql
+	print "Saving global SQL..\n"
+	save_global_sql
+	print "Bad climb ids: #{$bad_ids }\n"
+	print $bad_climb_ids
+	print "Done.\n"
 end
-=end

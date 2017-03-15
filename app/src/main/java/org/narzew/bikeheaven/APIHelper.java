@@ -29,6 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import com.google.android.gms.maps.model.LatLng;
 
 
 public class APIHelper {
@@ -1087,6 +1088,843 @@ public class APIHelper {
                     HttpPost httppost = new HttpPost(SERVER_PATH + "/database/get_local_sql.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(0);
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /** Old GeoMMO APIHelper methods */
+    /**
+     * Get all places in JSON format
+     *
+     * @return All places JSON format
+     */
+
+    public String get_all_places(){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getall/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(0);
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Get all unvisited places in JSON format
+     *
+     * @param user_id User ID
+     * @param authkey User authkey
+     * @return All unvisited places in JSON format
+     */
+
+    public String get_unvisited_places(Integer user_id, String authkey){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getunvisited/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+                    params.add(new BasicNameValuePair("user_id",user_id+""));
+                    params.add(new BasicNameValuePair("authkey",authkey));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Get all visited places in JSON format
+     *
+     * @param user_id User ID
+     * @param authkey User authkey
+     * @return All visited places in JSON format
+     */
+
+    public String get_visited_places(Integer user_id, String authkey){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getvisited/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+                    params.add(new BasicNameValuePair("user_id",user_id+""));
+                    params.add(new BasicNameValuePair("authkey",authkey));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Get all places near you in JSON format
+     *
+     * @param location LatLng containg location
+     * @return All places near youJSON format
+     */
+
+    public String get_all_places_near_you(LatLng location){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getallnearyou/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+                    params.add(new BasicNameValuePair("lat",String.valueOf(location.latitude)+""));
+                    params.add(new BasicNameValuePair("lng",String.valueOf(location.longitude)+""));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Get all unvisited places near you in JSON format
+     *
+     * @param user_id User ID
+     * @param authkey User authkey
+     * @param location LatLng containing location
+     * @return All unvisited places in JSON format
+     */
+
+    public String get_unvisited_places_near_you(Integer user_id, String authkey, LatLng location){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getunvisitednearyou/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(4);
+                    params.add(new BasicNameValuePair("user_id",user_id+""));
+                    params.add(new BasicNameValuePair("authkey",authkey));
+                    params.add(new BasicNameValuePair("lat",String.valueOf(location.latitude)+""));
+                    params.add(new BasicNameValuePair("lng",String.valueOf(location.longitude)+""));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Get all visited places near you in JSON format
+     *
+     * @param user_id User ID
+     * @param authkey User authkey
+     * @param location LatLng containing location
+     * @return All visited places near you in JSON format
+     */
+
+    public String get_visited_places_near_you(Integer user_id, String authkey, LatLng location){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getvisitednearyou/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(4);
+                    params.add(new BasicNameValuePair("user_id",user_id+""));
+                    params.add(new BasicNameValuePair("authkey",authkey));
+                    params.add(new BasicNameValuePair("lat",String.valueOf(location.latitude)+""));
+                    params.add(new BasicNameValuePair("lng",String.valueOf(location.longitude)+""));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Visit all visited places near your location
+     *
+     * @param user_id User ID
+     * @param authkey User authkey
+     * @return All visited places in JSON format
+     */
+
+    public String visit_near_places(Integer user_id, String authkey, LatLng location){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/visitnear/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(4);
+                    params.add(new BasicNameValuePair("user_id",user_id+""));
+                    params.add(new BasicNameValuePair("authkey",authkey));
+                    params.add(new BasicNameValuePair("lat", String.valueOf(location.latitude)+""));
+                    params.add(new BasicNameValuePair("lng", String.valueOf(location.longitude)+""));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    case "NOTHING_CHANGED":
+                        editor.putInt("request_result", 2);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Visit places in quest near your location
+     *
+     * @param user_id User ID
+     * @param authkey User authkey
+     * @return All visited places in JSON format
+     */
+
+    public String visit_quest_places (Integer user_id, String authkey, LatLng location){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/visitnearquest/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(4);
+                    params.add(new BasicNameValuePair("user_id",user_id+""));
+                    params.add(new BasicNameValuePair("authkey",authkey));
+                    params.add(new BasicNameValuePair("lat", String.valueOf(location.latitude)+""));
+                    params.add(new BasicNameValuePair("lng", String.valueOf(location.longitude)+""));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    case "NOTHING_CHANGED":
+                        editor.putInt("request_result", 2);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Search user (by name)
+     *
+     * @param id User ID
+     * @param authkey User authkey
+     * @param pattern Search pattern
+     * @return JSON containing search data (id+names pair) or NO_RESULTS
+     */
+
+    public String search_username(Integer id, String authkey, String pattern) {
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"friends/search/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(3);
+                    params.add(new BasicNameValuePair("id", id + ""));
+                    params.add(new BasicNameValuePair("authkey", authkey+""));
+                    params.add(new BasicNameValuePair("name", remove_polish_chars(pattern)+""));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "NO_RESULTS":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Get messages
+     *
+     * @param id User id
+     * @param authkey User authkey
+     * @param user User id you want message
+     * @return All messages JSON (user_id, recipent_id, message, sent_date)
+     */
+
+    public String get_messages(Integer id, String authkey, Integer user){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"messages/get/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(3);
+                    params.add(new BasicNameValuePair("id", id+""));
+                    params.add(new BasicNameValuePair("authkey", authkey+""));
+                    params.add(new BasicNameValuePair("user", user+""));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "iNVALID_USERNAME":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    case "INVALID_USER":
+                        editor.putInt("request_result", 2);
+                        editor.apply();
+                        return "";
+                    case "INVALID_AUTHKEY":
+                        editor.putInt("request_result", 3);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Send message
+     *
+     * @param id User id
+     * @param authkey User authkey
+     * @param recipent_id Id of message recipent
+     * @return Response code
+     */
+
+    public String send_message(Integer id, String authkey, Integer recipent_id, String message){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"messages/send/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(4);
+                    params.add(new BasicNameValuePair("id", id+""));
+                    params.add(new BasicNameValuePair("authkey", authkey+""));
+                    params.add(new BasicNameValuePair("recipent_id", recipent_id+""));
+                    params.add(new BasicNameValuePair("message", message+""));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "MESSAGE_SENT":
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return "";
+                    case "INAVLID_RECIPENT":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return "";
+                    case "EMPTY_MESSAGE":
+                        editor.putInt("request_result", 2);
+                        editor.apply();
+                        return "";
+                    case "INVALID_AUTHKEY":
+                        editor.putInt("request_result", 3);
+                        editor.apply();
+                        return "";
+                    case "INVALID_USER":
+                        editor.putInt("request_result", 3);
+                        editor.apply();
+                        return "";
+                    default:
+                        editor.putInt("request_result", -1);
+                        editor.apply();
+                        return result;
+                }
+            }
+            return "";
+        } else {
+            editor.apply();
+            return "";
+        }
+    }
+
+    /**
+     * Get all places in current quest in JSON format
+     *
+     * @param user_id User ID
+     * @param authkey User authkey
+     * @return All visited places in JSON format
+     */
+
+    public String get_quest_places(Integer user_id, String authkey){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putBoolean("HttpConnect", httpConnect);
+        editor.apply();
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getvisited/");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+                    params.add(new BasicNameValuePair("user_id",user_id+""));
+                    params.add(new BasicNameValuePair("authkey",authkey));
                     httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
                     // Odpowiedź serwera
                     HttpResponse response = httpclient.execute(httppost);
