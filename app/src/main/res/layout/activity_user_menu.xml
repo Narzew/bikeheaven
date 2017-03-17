@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.narzew.geommo.UserMenuActivity" >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.narzew.geommo.UserMenuActivity" >
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logout_button"
+        android:text="@string/logout"
+        android:onClick="openLogOutActivity" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_places_map"
+        android:text="@string/place_map0"
+        android:onClick="openAllPlacesMap" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_visited_places_map"
+        android:text="@string/place_map1"
+        android:onClick="openVisitedPlacesMap" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_unvisited_places_map"
+        android:text="@string/place_map2"
+        android:onClick="openUnvisitedPlacesMap" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_near_places_map"
+        android:text="@string/place_map3"
+        android:onClick="openNearAllPlacesMap" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_near_visited_places_map"
+        android:text="@string/place_map4"
+        android:onClick="openNearVisitedPlacesMap" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_near_unvisited_places_map"
+        android:text="@string/place_map5"
+        android:onClick="openNearUnvisitedPlacesMap" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_places_list"
+        android:text="@string/place_list0"
+        android:onClick="openAllPlacesList" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_visited_places_list"
+        android:text="@string/place_list1"
+        android:onClick="openVisitedPlacesList" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_unvisited_places_list"
+        android:text="@string/place_list2"
+        android:onClick="openUnvisitedPlacesList" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_near_places_list"
+        android:text="@string/place_list3"
+        android:onClick="openNearAllPlacesList" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_near_visited_places_list"
+        android:text="@string/place_list4"
+        android:onClick="openNearVisitedPlacesList" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_near_unvisited_places_list"
+        android:text="@string/place_list5"
+        android:onClick="openNearUnvisitedPlacesList" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_settings"
+        android:text="@string/open_settings"
+        android:onClick="openSettings" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_appinfo"
+        android:text="@string/app_info"
+        android:onClick="openAppInfoActivity" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_friend_requests"
+        android:text="@string/open_friend_requests"
+        android:onClick="openFriendInvitations" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_friend_search"
+        android:text="@string/open_friend_search"
+        android:onClick="openFriendSearch" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_friend_list"
+        android:text="@string/open_friend_list"
+        android:onClick="openFriendList" />
+
+</LinearLayout>
+
+</ScrollView>
+
+    <ListView
+        android:id="@+id/drawerList"
+        android:entries="@array/menu2"
+        android:divider="@null"
+        android:layout_width="@dimen/drawer_left_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="left" >
+    </ListView>
+
+</android.support.v4.widget.DrawerLayout>
