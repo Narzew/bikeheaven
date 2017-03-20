@@ -29,6 +29,7 @@ gradle
 *.tgz
 *.json
 *.ncp
+*.kml
 scripts/climb_directions
 scripts/json
 scripts/old
