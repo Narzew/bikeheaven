@@ -1964,4 +1964,227 @@ public class APIHelper {
         }
     }
 
+    /**
+     * Register an user
+     * @param login Login
+     * @param email E-mail
+     * @param password Password (SHA1)
+     * @param fname First name
+     * @param sname Surname
+     * @param gender Gender. 0 - male; 1 - female int
+     * @param city City
+     * @param phone Phone number
+     * @param description User description
+     * @param pos Position: 0 - uczeń; 1 - korepetytor int
+     *
+     * TODO: Add input verification
+     */
+
+    public String register(String login, String email, String password, String fname, String sname, Integer gender, String city,
+                           String phone, String description, Integer pos){
+        hasActiveInternetConnection();
+        String result = "";
+        if(httpConnect) {
+            // Check parameters length
+            InputStream is = null;
+            try {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpPost httppost = new HttpPost(SERVER_PATH + "/users/register.php");
+                // Tablica z wartościami dla POST'a
+                List<NameValuePair> params = new ArrayList<NameValuePair>(3);
+                params.add(new BasicNameValuePair("login", login + ""));
+                params.add(new BasicNameValuePair("email", email + ""));
+                params.add(new BasicNameValuePair("password", password + ""));
+                httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                // Odpowiedź serwera
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity entity = response.getEntity();
+                is = entity.getContent();
+            } catch (Exception e) {
+                Log.e(LOG_KEY, "Error in http connection " + e.toString());
+            }
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                is.close();
+                result = sb.toString();
+                result = split_result(result);
+            } catch (Exception e) {
+                Log.e(LOG_KEY, "Error converting result " + e.toString());
+            }
+        }
+        return result;
+
+    }
+
+
+    /**
+     * Login an user
+     *
+     * Notice: You can use email or login (caseignore) in the email field
+     * @param email	User email or login
+     * @param password	User password (SHA1)
+     */
+
+    public String login(String email, String password) {
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        String result = "";
+        if (httpConnect) {
+            InputStream is = null;
+            try {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpPost httppost = new HttpPost(SERVER_PATH+"/users/login.php");
+                // Tablica z wartościami dla POST'a
+                List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+                params.add(new BasicNameValuePair("email", email));
+                params.add(new BasicNameValuePair("password", password));
+                httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                // Odpowiedź serwera
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity entity = response.getEntity();
+                is = entity.getContent();
+            } catch (Exception e) {
+                Log.e(LOG_KEY, "Error in http connection " + e.toString());
+            }
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                is.close();
+                result = sb.toString();
+                result = split_result(result);
+                int id=get_user_id(email);
+                editor.putInt("id", id);
+                editor.apply();
+            } catch (Exception e) {
+                Log.e(LOG_KEY, "Error converting result " + e.toString());
+            }
+        }
+        return result;
+
+
+    }
+
+    /**
+     * Get user id
+     * Get user id when you know email and authkey
+     *
+     * @param email User email
+     * @return User id
+     */
+
+    public Integer get_user_id(String email) {
+
+        // Check internet connection
+        hasActiveInternetConnection();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("HttpConnect", httpConnect);
+        String result = "";
+        if (httpConnect) {
+            if (result == "") {
+                InputStream is = null;
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/users/getbyemail.php");
+                    // Tablica z wartościami dla POST'a
+                    List<NameValuePair> params = new ArrayList<NameValuePair>(1);
+                    params.add(new BasicNameValuePair("email", email));
+                    httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    // Odpowiedź serwera
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error in http connection " + e.toString());
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    result = split_result(result);
+                } catch (Exception e) {
+                    Log.e(LOG_KEY, "Error converting result " + e.toString());
+                }
+                switch (result) {
+                    case "INVALID_USER":
+                        editor.putInt("request_result", 1);
+                        editor.apply();
+                        return 0;
+                    default:
+                        editor.putInt("request_result", 0);
+                        editor.apply();
+                        return Integer.parseInt(result);
+                }
+            }
+            return 0;
+        } else {
+            editor.apply();
+            return 0;
+        }
+    }
+
+    /**request
+     * Send new password change request
+     *
+     * @param email User email
+     * @param password New user password (SHA1)
+     */
+
+
+    public String send_password_request(String email, String password){
+
+        // Check internet connection
+        hasActiveInternetConnection();
+
+        String result = "";
+        if (httpConnect) {
+
+            InputStream is = null;
+            try {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpPost httppost = new HttpPost(SERVER_PATH+"/users/sendpassword.php");
+                // Tablica z wartościami dla POST'a
+                List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+                params.add(new BasicNameValuePair("email", email +""));
+                params.add(new BasicNameValuePair("password", password+""));
+                httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                // Odpowiedź serwera
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity entity = response.getEntity();
+                is = entity.getContent();
+            } catch (Exception e) {
+                Log.e(LOG_KEY, "Error in http connection " + e.toString());
+            }
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                is.close();
+                result = sb.toString();
+                result = split_result(result);
+            } catch (Exception e) {
+                Log.e(LOG_KEY, "Error converting result " + e.toString());
+            }
+        }
+        return result;
+    }
+
 }
