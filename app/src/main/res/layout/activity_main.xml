@@ -7,15 +7,15 @@
         android:id="@+id/mainContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:id="@+id/main_layout">
-            <ScrollView
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:id="@+id/main_layout">
                 <Button
                     android:id="@+id/button_climb_map"
                     android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_activity"
-                    android:onClick="settings_settings" />
+                    android:onClick="settings_clicked" />
                 <Button
                     android:id="@+id/button_appinfo"
                     android:layout_width="wrap_content"
@@ -45,8 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:inputType="number"
-                    />
+                    android:inputType="number" />
                 <Button
                     android:id="@+id/button_sample_climb_info"
                     android:layout_width="wrap_content"
@@ -71,8 +70,8 @@
                     android:layout_height="wrap_content"
                     android:text="Register"
                     android:onClick="register_clicked" />
-            </ScrollView>
-        </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </FrameLayout>
     <ListView
         android:id="@+id/drawerList"

@@ -122,78 +122,78 @@
         name="rangeseekbar_min_label">HC</string>
     <string
         name="rangeseekbar_max_label">7</string>
-    <string name="settings">Settings</string>
-    <string name="action_settings">Settings</string>
-    <string name="menu_login">Login</string>
-    <string name="menu_register">Register</string>
-    <string name="menu_remind_password">Recover password</string>
-    <string name="menu_about">About</string>
-    <string name="menu_profile">Profile</string>
-    <string name="menu_discovered">Discovered places</string>
-    <string name="menu_todiscover">Places to discover</string>
-    <string name="no_internet">No internet</string>
-    <string name="no_internet2">No internet..</string>
+    <string name="settings" translatable="false">Settings</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="menu_login" translatable="false">Login</string>
+    <string name="menu_register" translatable="false">Register</string>
+    <string name="menu_remind_password" translatable="false">Recover password</string>
+    <string name="menu_about" translatable="false">About</string>
+    <string name="menu_profile" translatable="false">Profile</string>
+    <string name="menu_discovered" translatable="false">Discovered places</string>
+    <string name="menu_todiscover" translatable="false">Places to discover</string>
+    <string name="no_internet" translatable="false">No internet</string>
+    <string name="no_internet2" translatable="false">No internet..</string>
 
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes" translatable="false">Yes</string>
+    <string name="no" translatable="false">No</string>
 
-    <string name="enter_username">Podaj nazwę użytkownika</string>
-    <string name="enter_email">Podaj e-mail</string>
-    <string name="enter_new_password">Podaj nowe hasło</string>
-    <string name="repeat_new_password">Powtórz nowe hasło</string>
-    <string name="send_new_password">Wyślij nowe hasło</string>
-    <string name="new_password_sent">Nowe hasło wysłane</string>
-    <string name="register">Rejestracja</string>
-    <string name="login">Logowanie</string>
-    <string name="password">Hasło</string>
-    <string name="email">E-mail</string>
-    <string name="recover_password">Przypomnij hasło</string>
-    <string name="passwords_mismatch">Hasła nie sa takie same</string>
-    <string name="email_with_spaces">E-mail zawiera space</string>
-    <string name="email_not_correct">E-mail jest niepoprawny</string>
-    <string name="login_too_short">Login za krótki</string>
-    <string name="login_too_long">Login za długi</string>
-    <string name="password_too_short">Hasło za krótkie</string>
-    <string name="password_too_long">Hasło za długie</string>
-    <string name="invalid_email_length">Niewłaściwa długość e-maila</string>
-    <string name="no_errors">Brak błędów</string>
-    <string name="register_ok">Zarejestrowano poprawnie</string>
-    <string name="invalid_login_length">Niewłaściwa długość loginu</string>
-    <string name="invalid_password_length">Niewłaściwa długość hasła</string>
-    <string name="user_exist">Taki użytkownik już istnieje</string>
-    <string name="email_exist">Wybrany e-mail już został użyty</string>
-    <string name="unknown_error">Nieznany błąd</string>
-    <string name="access_denied">Niewłaściwy login lub hasło</string>
-    <string name="account_inactive">Konto nieaktywne</string>
-    <string name="account_banned">Konto zbanowane</string>
-    <string name="correct_form_errors">Popraw błędy w formularzu</string>
-    <string name="logout">Wyloguj</string>
-    <string name="open_thoughts_list">Najnowsze myśli</string>
-    <string name="repeat_password">Powtórz hasło</string>
+    <string name="enter_username" translatable="false">Podaj nazwę użytkownika</string>
+    <string name="enter_email" translatable="false">Podaj e-mail</string>
+    <string name="enter_new_password" translatable="false">Podaj nowe hasło</string>
+    <string name="repeat_new_password" translatable="false">Powtórz nowe hasło</string>
+    <string name="send_new_password" translatable="false">Wyślij nowe hasło</string>
+    <string name="new_password_sent" translatable="false">Nowe hasło wysłane</string>
+    <string name="register" translatable="false">Rejestracja</string>
+    <string name="login" translatable="false">Logowanie</string>
+    <string name="password" translatable="false">Hasło</string>
+    <string name="email" translatable="false">E-mail</string>
+    <string name="recover_password" translatable="false">Przypomnij hasło</string>
+    <string name="passwords_mismatch" translatable="false">Hasła nie sa takie same</string>
+    <string name="email_with_spaces" translatable="false">E-mail zawiera space</string>
+    <string name="email_not_correct" translatable="false">E-mail jest niepoprawny</string>
+    <string name="login_too_short" translatable="false">Login za krótki</string>
+    <string name="login_too_long" translatable="false">Login za długi</string>
+    <string name="password_too_short" translatable="false">Hasło za krótkie</string>
+    <string name="password_too_long" translatable="false">Hasło za długie</string>
+    <string name="invalid_email_length" translatable="false">Niewłaściwa długość e-maila</string>
+    <string name="no_errors" translatable="false">Brak błędów</string>
+    <string name="register_ok" translatable="false">Zarejestrowano poprawnie</string>
+    <string name="invalid_login_length" translatable="false">Niewłaściwa długość loginu</string>
+    <string name="invalid_password_length" translatable="false">Niewłaściwa długość hasła</string>
+    <string name="user_exist" translatable="false">Taki użytkownik już istnieje</string>
+    <string name="email_exist" translatable="false">Wybrany e-mail już został użyty</string>
+    <string name="unknown_error" translatable="false">Nieznany błąd</string>
+    <string name="access_denied" translatable="false">Niewłaściwy login lub hasło</string>
+    <string name="account_inactive" translatable="false">Konto nieaktywne</string>
+    <string name="account_banned" translatable="false">Konto zbanowane</string>
+    <string name="correct_form_errors" translatable="false">Popraw błędy w formularzu</string>
+    <string name="logout" translatable="false">Wyloguj</string>
+    <string name="open_thoughts_list" translatable="false">Najnowsze myśli</string>
+    <string name="repeat_password" translatable="false">Powtórz hasło</string>
 
-    <string name="activity_login">Login</string>
-    <string name="activity_register">Register</string>
-    <string name="activity_placemap">Place map</string>
-    <string name="activity_logout">Logout</string>
+    <string name="activity_login" translatable="false">Login</string>
+    <string name="activity_register" translatable="false">Register</string>
+    <string name="activity_placemap" translatable="false">Place map</string>
+    <string name="activity_logout" translatable="false">Logout</string>
 
-    <string name="open_settings">Settings</string>
-    <string name="open_friend_requests">Friend requests</string>
-    <string name="open_friend_search">Friend search</string>
-    <string name="open_friend_list">Friend list</string>
+    <string name="open_settings" translatable="false">Settings</string>
+    <string name="open_friend_requests" translatable="false">Friend requests</string>
+    <string name="open_friend_search" translatable="false">Friend search</string>
+    <string name="open_friend_list" translatable="false">Friend list</string>
 
-    <string name="place_map">Mapa miejsc</string>
-    <string name="place_map0">Mapa wszystkich miejsc</string>
-    <string name="place_map1">Mapa odwiedzonych miejsc</string>
-    <string name="place_map2">Mapa nieodwiedzonych miejsc</string>
-    <string name="place_map3">Mapa pobliskich miejsc</string>
-    <string name="place_map4">Mapa pobliskich odwiedzonych miejsc</string>
-    <string name="place_map5">Mapa pobliskich nieodwiedzonych miejsc</string>
+    <string name="place_map" translatable="false">Mapa miejsc</string>
+    <string name="place_map0" translatable="false">Mapa wszystkich miejsc</string>
+    <string name="place_map1" translatable="false">Mapa odwiedzonych miejsc</string>
+    <string name="place_map2" translatable="false">Mapa nieodwiedzonych miejsc</string>
+    <string name="place_map3" translatable="false">Mapa pobliskich miejsc</string>
+    <string name="place_map4" translatable="false">Mapa pobliskich odwiedzonych miejsc</string>
+    <string name="place_map5" translatable="false">Mapa pobliskich nieodwiedzonych miejsc</string>
 
-    <string name="place_list">Lista miejsc</string>
-    <string name="place_list0">Lista wszystkich miejsc</string>
-    <string name="place_list1">Lista odwiedzonych miejsc</string>
-    <string name="place_list2">Lista nieodwiedzonych miejsc</string>
-    <string name="place_list3">Lista pobliskich miejsc</string>
-    <string name="place_list4">Lista pobliskich odwiedzonych miejsc</string>
-    <string name="place_list5">Lista pobliskich nieodwiedzonych miejsc</string>
+    <string name="place_list" translatable="false">Lista miejsc</string>
+    <string name="place_list0" translatable="false">Lista wszystkich miejsc</string>
+    <string name="place_list1" translatable="false">Lista odwiedzonych miejsc</string>
+    <string name="place_list2" translatable="false">Lista nieodwiedzonych miejsc</string>
+    <string name="place_list3" translatable="false">Lista pobliskich miejsc</string>
+    <string name="place_list4" translatable="false">Lista pobliskich odwiedzonych miejsc</string>
+    <string name="place_list5" translatable="false">Lista pobliskich nieodwiedzonych miejsc</string>
 </resources>

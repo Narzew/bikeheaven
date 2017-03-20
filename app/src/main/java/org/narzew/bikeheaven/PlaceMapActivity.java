@@ -56,7 +56,7 @@ public class PlaceMapActivity extends ActionBarActivity implements AdapterView.O
     SharedPreferences sp;
     Integer id;
     String authkey;
-    Integer filter_mode;
+    Integer filter_mode = 0;
     Integer ary_size;
     JSONObject jObject;
     Integer clicked_id;
@@ -71,8 +71,8 @@ public class PlaceMapActivity extends ActionBarActivity implements AdapterView.O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_layout);
-        b = getIntent().getExtras();
-        filter_mode = b.getInt("filter_mode");
+        b = this.getIntent().getExtras();
+        filter_mode = b.getInt("filter_mode",0);
         GPSTracker gpStracker = new GPSTracker(context);
         Location location1 = gpStracker.getLocation();
         location = new LatLng(location1.getLatitude(), location1.getLongitude());

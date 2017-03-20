@@ -30,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
     void update_database_clicked(View v){
     }
 
-    void place_map_clicked(View v){
+    void places_map_clicked(View v){
         Intent intent = new Intent(MainActivity.this, PlaceMapActivity.class);
+        intent.putExtra("filter_mode", 0);
         startActivity(intent);
     }
 
