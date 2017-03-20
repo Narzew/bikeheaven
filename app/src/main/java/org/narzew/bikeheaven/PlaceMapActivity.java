@@ -73,7 +73,7 @@ public class PlaceMapActivity extends ActionBarActivity implements AdapterView.O
         setContentView(R.layout.map_layout);
         b = getIntent().getExtras();
         filter_mode = b.getInt("filter_mode");
-        GPStracker gpStracker = new GPStracker(context);
+        GPSTracker gpStracker = new GPSTracker(context);
         Location location1 = gpStracker.getLocation();
         location = new LatLng(location1.getLatitude(), location1.getLongitude());
 
@@ -113,7 +113,7 @@ public class PlaceMapActivity extends ActionBarActivity implements AdapterView.O
         }
 
         drawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
-        menuitems=getResources().getStringArray(R.array.menu2);
+        menuitems=getResources().getStringArray(R.array.menu);
         listView=(ListView) findViewById(R.id.drawerList);
         MyAdapter myadapter = new MyAdapter(this, Arrays.asList(menuitems));
         listView.setAdapter(myadapter);
@@ -270,29 +270,22 @@ public class PlaceMapActivity extends ActionBarActivity implements AdapterView.O
         return true;
     }
 
+    public void map_clicked(){
+        Intent map_activity = new Intent(this, MapsActivity.class);
+        startActivity(map_activity);
+    }
+
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
         switch(id){
-            case R.id.menu_todiscover:
-                undiscovered_clicked();
+            case R.id.menu_map:
+                map_clicked();
                 break;
             case R.id.menu_settings:
                 settings_clicked();
                 break;
-            case R.id.menu_about:
-                about_clicked();
-                break;
-            case R.id.menu_discovered:
-                discovered_clicked();
-                break;
-            case R.id.menu_login:
-                login_clicked();
-                break;
-            case R.id.menu_register:
-                register_clicked();
-                break;
-            case R.id.menu_remind_pasword:
-                remind_password_clicked();
+            case R.id.menu_informations:
+                informations_clicked();
                 break;
         }
         addDrawerListener();
@@ -392,7 +385,7 @@ public class PlaceMapActivity extends ActionBarActivity implements AdapterView.O
 
     public void addDrawerListener(){
         drawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
-        menuitems=getResources().getStringArray(R.array.menu2);
+        menuitems=getResources().getStringArray(R.array.menu);
         listView=(ListView) findViewById(R.id.drawerList);
         org.narzew.bikeheaven.MyAdapter myadapter = new org.narzew.bikeheaven.MyAdapter(this, Arrays.asList(menuitems));
         listView.setAdapter(myadapter);

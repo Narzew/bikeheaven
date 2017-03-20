@@ -53,6 +53,24 @@
                     android:layout_height="wrap_content"
                     android:text="Sample climb information"
                     android:onClick="sample_climb_information_clicked" />
+                <Button
+                    android:id="@+id/button_place_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Places Map"
+                    android:onClick="places_map_clicked" />
+                <Button
+                    android:id="@+id/button_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login"
+                    android:onClick="login_clicked" />
+                <Button
+                    android:id="@+id/button_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Register"
+                    android:onClick="register_clicked" />
             </ScrollView>
         </LinearLayout>
     </FrameLayout>

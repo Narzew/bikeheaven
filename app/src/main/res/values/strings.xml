@@ -170,4 +170,30 @@
     <string name="logout">Wyloguj</string>
     <string name="open_thoughts_list">Najnowsze myśli</string>
     <string name="repeat_password">Powtórz hasło</string>
+
+    <string name="activity_login">Login</string>
+    <string name="activity_register">Register</string>
+    <string name="activity_placemap">Place map</string>
+    <string name="activity_logout">Logout</string>
+
+    <string name="open_settings">Settings</string>
+    <string name="open_friend_requests">Friend requests</string>
+    <string name="open_friend_search">Friend search</string>
+    <string name="open_friend_list">Friend list</string>
+
+    <string name="place_map">Mapa miejsc</string>
+    <string name="place_map0">Mapa wszystkich miejsc</string>
+    <string name="place_map1">Mapa odwiedzonych miejsc</string>
+    <string name="place_map2">Mapa nieodwiedzonych miejsc</string>
+    <string name="place_map3">Mapa pobliskich miejsc</string>
+    <string name="place_map4">Mapa pobliskich odwiedzonych miejsc</string>
+    <string name="place_map5">Mapa pobliskich nieodwiedzonych miejsc</string>
+
+    <string name="place_list">Lista miejsc</string>
+    <string name="place_list0">Lista wszystkich miejsc</string>
+    <string name="place_list1">Lista odwiedzonych miejsc</string>
+    <string name="place_list2">Lista nieodwiedzonych miejsc</string>
+    <string name="place_list3">Lista pobliskich miejsc</string>
+    <string name="place_list4">Lista pobliskich odwiedzonych miejsc</string>
+    <string name="place_list5">Lista pobliskich nieodwiedzonych miejsc</string>
 </resources>

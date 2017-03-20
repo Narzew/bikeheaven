@@ -58,6 +58,27 @@
             android:label="@string/settings_activity"
             android:largeHeap="true"
             android:theme="@style/NLightStyle"></activity>
+        <activity
+            android:name=".PlaceMapActivity"
+            android:label="@string/activity_placemap"
+            android:largeHeap="true"
+            android:theme="@style/NLightStyle"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/activity_login"
+            android:largeHeap="true"
+            android:theme="@style/NLightStyle"></activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/activity_register"
+            android:largeHeap="true"
+            android:theme="@style/NLightStyle"></activity>
+        <activity
+            android:name=".LogOutActivity"
+            android:label="@string/activity_logout"
+            android:largeHeap="true"
+            android:theme="@style/NLightStyle"></activity>
+
 
         <service android:name=".services" />
 

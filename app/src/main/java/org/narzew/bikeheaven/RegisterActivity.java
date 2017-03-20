@@ -173,7 +173,7 @@ public class RegisterActivity extends ActionBarActivity{
             DigestHash digesthash = new DigestHash(context);
             password = digesthash.sha1(password);
             APIHelper apihelper = new APIHelper(context);
-            apihelper.register(login, password, email);
+            apihelper.register(login, email, password);
             return null;
         }
 

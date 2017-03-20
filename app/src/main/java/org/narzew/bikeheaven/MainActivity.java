@@ -30,6 +30,21 @@ public class MainActivity extends AppCompatActivity {
     void update_database_clicked(View v){
     }
 
+    void place_map_clicked(View v){
+        Intent intent = new Intent(MainActivity.this, PlaceMapActivity.class);
+        startActivity(intent);
+    }
+
+    void register_clicked(View v){
+        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    void login_clicked(View v){
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
     void climb_info_clicked(View v){
         Integer climb_id = Integer.parseInt(edittext_climb_id.getText().toString());
         Intent intent = new Intent(MainActivity.this, ClimbInfoActivity.class);

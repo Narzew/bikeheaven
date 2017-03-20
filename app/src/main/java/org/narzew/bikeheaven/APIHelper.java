@@ -1969,19 +1969,11 @@ public class APIHelper {
      * @param login Login
      * @param email E-mail
      * @param password Password (SHA1)
-     * @param fname First name
-     * @param sname Surname
-     * @param gender Gender. 0 - male; 1 - female int
-     * @param city City
-     * @param phone Phone number
-     * @param description User description
-     * @param pos Position: 0 - uczeń; 1 - korepetytor int
      *
      * TODO: Add input verification
      */
 
-    public String register(String login, String email, String password, String fname, String sname, Integer gender, String city,
-                           String phone, String description, Integer pos){
+    public String register(String login, String email, String password){
         hasActiveInternetConnection();
         String result = "";
         if(httpConnect) {

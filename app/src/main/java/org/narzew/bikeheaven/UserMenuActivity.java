@@ -25,7 +25,7 @@ public class UserMenuActivity extends AppCompatActivity  {
 
 
         drawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
-        menuitems=getResources().getStringArray(R.array.menu2);
+        menuitems=getResources().getStringArray(R.array.menu);
         listView=(ListView) findViewById(R.id.drawerList);
         MyAdapter myadapter = new MyAdapter(this, Arrays.asList(menuitems));
         listView.setAdapter(myadapter);

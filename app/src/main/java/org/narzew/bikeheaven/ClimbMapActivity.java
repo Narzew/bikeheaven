@@ -52,7 +52,7 @@ import android.graphics.Color;
 public class ClimbMapActivity extends ActionBarActivity implements OnItemClickListener {
 
 	public GoogleMap googleMap;
-	private String PREFS_NAME = "AltimetrPrefs";
+	private String PREFS_NAME = Config.PREFS_NAME;
 	private DrawerLayout drawerLayout;
 	private ListView listView; // For Navigation Drawer
 	private String[] menuitems;
