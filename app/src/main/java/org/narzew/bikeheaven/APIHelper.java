@@ -1148,7 +1148,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getall/");
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getall.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(0);
                     httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
@@ -1212,7 +1212,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getunvisited/");
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getunvisited.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(2);
                     params.add(new BasicNameValuePair("user_id",user_id+""));
@@ -1278,7 +1278,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getvisited/");
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getvisited.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(2);
                     params.add(new BasicNameValuePair("user_id",user_id+""));
@@ -1343,7 +1343,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getallnearyou/");
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getallnearyou.php" +"");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(2);
                     params.add(new BasicNameValuePair("lat",String.valueOf(location.latitude)+""));
@@ -1410,7 +1410,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getunvisitednearyou/");
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getunvisitednearyou.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(4);
                     params.add(new BasicNameValuePair("user_id",user_id+""));
@@ -1479,7 +1479,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getvisitednearyou/");
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getvisitednearyou.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(4);
                     params.add(new BasicNameValuePair("user_id",user_id+""));
@@ -1547,7 +1547,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/visitnear/");
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/visitnear.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(4);
                     params.add(new BasicNameValuePair("user_id",user_id+""));
@@ -1619,7 +1619,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/visitnearquest/");
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/visitnearquest.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(4);
                     params.add(new BasicNameValuePair("user_id",user_id+""));
@@ -1920,7 +1920,7 @@ public class APIHelper {
                 InputStream is = null;
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getvisited/");
+                    HttpPost httppost = new HttpPost(SERVER_PATH+"/places/getvisited.php");
                     // Tablica z wartościami dla POST'a
                     List<NameValuePair> params = new ArrayList<NameValuePair>(2);
                     params.add(new BasicNameValuePair("user_id",user_id+""));
