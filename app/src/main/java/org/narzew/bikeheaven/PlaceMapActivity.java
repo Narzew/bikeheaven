@@ -73,8 +73,8 @@ public class PlaceMapActivity extends ActionBarActivity implements AdapterView.O
         setContentView(R.layout.map_layout);
         b = this.getIntent().getExtras();
         filter_mode = b.getInt("filter_mode",0);
-        GPSTracker gpStracker = new GPSTracker(context);
-        Location location1 = gpStracker.getLocation();
+        GPSTracker gpstracker = new GPSTracker(context);
+        Location location1 = gpstracker.getLocation();
         location = new LatLng(location1.getLatitude(), location1.getLongitude());
 
         // Screen Orientation
@@ -172,7 +172,10 @@ public class PlaceMapActivity extends ActionBarActivity implements AdapterView.O
                     jsonArray = new JSONArray(apihelper.get_unvisited_places_near_you(id, authkey, location));
                     break;
                 default:
-                    jsonArray = new JSONArray();
+                    Log.d(Config.LOG_KEY, "No id parameter, getting default one");
+                    // DEBUG: Remove that
+                    jsonArray = new JSONArray(apihelper.get_all_places());
+                    //jsonArray = new JSONArray();
             }
 
             ary_size = jsonArray.length();
@@ -187,7 +190,7 @@ public class PlaceMapActivity extends ActionBarActivity implements AdapterView.O
                             jObject.getInt("id"),
                             jObject.getString("name"),
                             jObject.getString("description"),
-                            jObject.getInt("category"),
+                            jObject.getInt("cat"),
                             new LatLng(jObject.getDouble("lat"),jObject.getDouble("lng"))
                     ));
                 } catch (Exception e) {
