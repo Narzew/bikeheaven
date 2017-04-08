@@ -1,0 +1,65 @@
+<ScrollView android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:id="@+id/main_layout">
+        <Button
+            android:id="@+id/button_climb_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/climb_map"
+            android:onClick="climb_map_clicked" />
+        <Button
+            android:id="@+id/button_setings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_activity"
+            android:onClick="settings_clicked" />
+        <Button
+            android:id="@+id/button_appinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_info"
+            android:onClick="app_info_clicked" />
+        <Button
+            android:id="@+id/button_update_database"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update database"
+            android:onClick="update_database_clicked" />
+        <EditText
+            android:id="@+id/edittext_climb_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:inputType="number" />
+        <Button
+            android:id="@+id/button_sample_climb_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sample climb information"
+            android:onClick="sample_climb_information_clicked" />
+        <Button
+            android:id="@+id/button_place_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Places Map"
+            android:onClick="places_map_clicked" />
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:onClick="login_clicked" />
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:onClick="register_clicked" />
+    </LinearLayout>
+</ScrollView>
