@@ -35,7 +35,7 @@ import android.util.Log;
 
 public class ClimbInfoActivity extends ActionBarActivity implements OnItemClickListener {
 	
-	public String PREFS_NAME = "AltimetrPrefs";
+	public String PREFS_NAME = Config.PREFS_NAME;
 	private DrawerLayout drawerLayout;
 	private ListView listView; // For Navigation Drawer
 	private ListView climbList; // For Climb List
