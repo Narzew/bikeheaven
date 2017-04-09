@@ -1,43 +1,28 @@
 package org.narzew.bikeheaven;
 
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListView; 
-import android.widget.TextView;
-import android.widget.Button;
-import android.widget.Toast;
-import android.widget.ImageView;
 import android.widget.CheckBox;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.widget.Spinner;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-import org.narzew.bikeheaven.RangeSeekBar;
 import org.narzew.bikeheaven.RangeSeekBar.OnRangeSeekBarChangeListener;
+
+import java.util.Arrays;
 
 public class SettingsActivity extends ActionBarActivity implements OnItemClickListener {
 	
@@ -54,7 +39,10 @@ public class SettingsActivity extends ActionBarActivity implements OnItemClickLi
         super.onCreate(savedInstanceState);
         SharedPreferences sharedpreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         setContentView(R.layout.settings);
-        
+
+		// Language
+		String language = sharedpreferences.getString("language", "en");
+
         // Screen orientation
         int screen_orientation = sharedpreferences.getInt("screen_orientation", 0);
         switch(screen_orientation){
@@ -67,7 +55,44 @@ public class SettingsActivity extends ActionBarActivity implements OnItemClickLi
 			default:
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		}
-        
+
+		// Language select (Spinner)
+		Spinner langspinner = (Spinner)findViewById(R.id.lang_spinner);
+		ArrayAdapter<CharSequence> spinadapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
+		spinadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		maptypespinner.setAdapter(spinadapter);
+		//maptypespinner.setSelection(sharedpreferences.getString("language", "en"));
+		maptypespinner.setOnItemSelectedListener(new OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+				switch(position){
+					case 0:
+						// English
+						put_string("language", "en");
+						break;
+					case 1:
+						// Polish
+						put_string("language","pl");
+						break;
+					case 2:
+						// Spanish
+						put_string("language", "es");
+						break;
+					case 3:
+						// Russian
+						put_string("language", "ru");
+						break;
+					default:
+						put_string("language", "en");
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent){
+			}
+
+		});
+
         // Wybór typu mapy (Spinner)
         Spinner maptypespinner = (Spinner)findViewById(R.id.maptype_spinner);
         ArrayAdapter<CharSequence> spinadapter = ArrayAdapter.createFromResource(this, R.array.maptypes, android.R.layout.simple_spinner_item);
